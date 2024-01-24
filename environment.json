@@ -1,0 +1,9 @@
+{
+  "entities": {
+    "pdtf": {
+      "didType": "did:key",
+      "origin": "https://propdata.org.uk",
+      "didConfiguration": true
+    }
+  }
+}
