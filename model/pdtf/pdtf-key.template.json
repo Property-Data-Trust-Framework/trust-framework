@@ -1,4 +1,0 @@
-{
-  "credentialsTopic": "{{ pdtf-credentials.topic }}",
-  "memberTopic": "{{ pdtf-participant.topic }}"
-}

@@ -1,0 +1,6 @@
+{
+  "self": "{{ index.template }}",
+  "entryPoint": "{{ pdtf.trustestablishment }}",
+  "credentialsTopic": "{{ pdtfCredentials.topic }}",
+  "memberTopic": "{{ pdtfParticipant.topic }}"
+}

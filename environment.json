@@ -5,5 +5,8 @@
       "origin": "https://propdata.org.uk",
       "didConfiguration": true
     }
+  },
+  "trustframeworks": {
+    "pdtf": "file://dist/default/pdtf/trustframework"
   }
 }
