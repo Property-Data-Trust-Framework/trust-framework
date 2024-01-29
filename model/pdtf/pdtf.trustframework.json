@@ -1,0 +1,9 @@
+{
+  "credentials": [
+    {
+      "type": "ExampleCredential",
+      "schema": "example"
+    }
+  ],
+  "topics": ["pdtf-participant"]
+}

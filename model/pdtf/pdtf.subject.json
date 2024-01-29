@@ -1,0 +1,10 @@
+{
+  "pdtf-credentials": {
+    "credentials": [
+      {
+        "type": "ExampleCredential",
+        "schema": "{{ example.credschema }}"
+      }
+    ]
+  }
+}
