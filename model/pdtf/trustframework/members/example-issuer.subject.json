@@ -1,0 +1,9 @@
+{
+  "pdtfParticipant": {
+    "name": "Example Issuer",
+    "description": "Example issuer"
+  },
+  "pdtfIssuer": {
+    "credentials": [{"type": "ExampleCredential"}]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "pdtfParticipant": {
+    "name": "Example Verifier",
+    "description": "Example Verifier"
+  },
+  "pdtfVerifier": {
+    "credentials": [{"type": "ExampleCredential"}]
+  }
+}

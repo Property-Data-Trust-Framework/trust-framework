@@ -1,6 +1,8 @@
 {
   "trustEstablishmentDoc": {
     "memberTopic": "pdtfParticipant",
+    "issuerTopic": "pdtfIssuer",
+    "verifierTopic": "pdtfVerifier",
     "credentialsTopic": "pdtfCredentials",
     "topics": []
   },
