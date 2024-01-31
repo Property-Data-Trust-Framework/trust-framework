@@ -1,0 +1,10 @@
+{
+  "trustEstablishmentDoc": {
+    "memberTopic": "pdtfParticipant",
+    "credentialsTopic": "pdtfCredentials",
+    "topics": []
+  },
+  "staticApi": {
+    "extensionlessEndpoints": true
+  }
+}
