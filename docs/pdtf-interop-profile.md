@@ -24,7 +24,7 @@ Each participant of the PDTF must:
 
 ## Schemas
 
-The PDTF publishes PDTF Credential Schemas, where a PDTF Credential Schema is a JsonSchema associated with a single canonical `type`.
+The PDTF will publish PDTF Credential Schemas, where a PDTF Credential Schema is a JsonSchema associated with a single canonical `type`.
 Schemas are organised into the following categories, where each category represents a different type of subject.
 
 
@@ -105,21 +105,21 @@ The recognised PDTF Credential Schemas are published as a single trust assertion
 
 ## Roles and Permissions
 
-The PDTF will assign participants roles which are associated with certain permissions related to the exchange of PDTF credentials. 
+The PDTF will assign participants roles that are associated with certain permissions related to the exchange of PDTF credentials. 
 Participants of the PDTF are expected to adhere to these permissions.
 
 
 Role are assigned using a [Trust Establishment Document](https://identity.foundation/trust-establishment/) maintained by the PDTF. 
 The PDTF will control and publicize a DID that it will use to make role assertions about participants. 
-Each participant must declare a public did to the PDTF, that will be used as the subject of role assertions. 
+Each participant must declare a public did to the PDTF that will be used as the subject of role assertions. 
 Additionally a participant must declare an HTTPS domain (ideally this can be discovered using `serviceEndpoints` in the DID doc 
 however not all did methods will be suitable for this) and a [Wellknown DID configuration](https://identity.foundation/.well-known/resources/did-configuration/) to link this domain with their declared DID.
 
 Each role has an associated trust establishment topic. The current roles are:
 
-* [member](../model/pdtf/roles/pdtf-participant.topic.json) - This participant is a member of the PDTF.
-* Issuer - This entity can issue any of the PDTF credential defined in their role entry.
-* Verifier - This entity can request any of the PDTF credential defined in their role entry.
+* [member](../model/pdtf/trustframework/roles/pdtfParticipant.topic.json) - This participant is a member of the PDTF.
+* [Issuer](../model/pdtf/trustframework/roles/pdtfIssuer.topic.json) - This entity can issue any of the PDTF credential defined in their role entry.
+* [Verifier](../model/pdtf/trustframework/roles/pdtfVerifier.topic.json) - This entity can request any of the PDTF credential defined in their role entry.
 
 Issuers should:
 * Only issue credentials that they have been granted permission to in their issuance role entry
