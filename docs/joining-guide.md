@@ -39,7 +39,7 @@ Once I've evaluated which libraries would be suitable for credential exchange an
 ### Picking an Agent
 In this guide we will be using Veramo via TrustBench. 
 [Veramo](https://veramo.io/) is a library looked after by [DIF](https://identity.foundation/), offering a modular set of APIs for working with verifiable data and SSI. 
-[TrustBench](https://github.com/lemontreeran/TrustBox/tree/main/packages/trustbench) 
+[TrustBench](https://github.com/ed-curran/TrustBox/tree/main/packages/trustbench) 
 is a tool I made to allow an SSI set-up to be defined more declaratively. 
 For this guide it helps us generate a well-known did configuration. 
 
