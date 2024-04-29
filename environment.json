@@ -13,6 +13,9 @@
     },
     "example-combined": {
       "did": "did:key:z6Mkt254rXxhKanMTiEGiNhrdsoTiV8TFw4aj6bkC9FSMAku"
+    },
+    "moverly": {
+      "did": "did:jwk:eyJhbGciOiJFUzI1NksiLCJjcnYiOiJzZWNwMjU2azEiLCJrdHkiOiJFQyIsInVzZSI6InNpZyIsIngiOiJFRDRLZlYxemZ6Sllfb1Bmb2JCODl5R24xWEZQN2JoWHNUZGpHVFFDR0NNIiwieSI6IkJtMlYwbkxmYWYzbEgxcFhJZGtrY0k1T2s1WHdaeHJydGkzR3NibVZ6ancifQ"
     }
   }
 }
