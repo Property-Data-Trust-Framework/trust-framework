@@ -1,0 +1,12 @@
+{
+  "pdtfParticipant": {
+    "name": "Moverly",
+    "description": "Moverly consumer-facing PDTF data and orchestration platform"
+  },
+  "pdtfIssuer": {
+    "credentials": [{ "type": "ExampleCredential" }]
+  },
+  "pdtfVerifier": {
+    "credentials": [{ "type": "ExampleCredential" }]
+  }
+}
