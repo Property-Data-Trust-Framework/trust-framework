@@ -16,6 +16,9 @@
     },
     "moverly": {
       "did": "did:jwk:eyJhbGciOiJFUzI1NksiLCJjcnYiOiJzZWNwMjU2azEiLCJrdHkiOiJFQyIsInVzZSI6InNpZyIsIngiOiJFRDRLZlYxemZ6Sllfb1Bmb2JCODl5R24xWEZQN2JoWHNUZGpHVFFDR0NNIiwieSI6IkJtMlYwbkxmYWYzbEgxcFhJZGtrY0k1T2s1WHdaeHJydGkzR3NibVZ6ancifQ"
+    },
+    "kotini": {
+      "did": "did:jwk:eyJhbGciOiJFUzI1NksiLCJjcnYiOiJzZWNwMjU2azEiLCJrdHkiOiJFQyIsInVzZSI6InNpZyIsIngiOiI1bE9Id1AtVldCN1IwV2VlRU9TMWMwdlN3TkpLVk5XckRVVktMZl9KNUJvIiwieSI6InRtLXRwMkpKV3FFZFMwQ0o0LXlTYno3QVdZZnhkWjJMLXVCTWRkcnhubWMifQ"
     }
   }
 }
