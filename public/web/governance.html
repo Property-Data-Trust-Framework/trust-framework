@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ugovernance - Property Data Trust Framework</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            color: #24292e;
+        }
+        h1, h2, h3 { color: #0366d6; }
+        code { 
+            background: #f6f8fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-size: 85%;
+        }
+        pre {
+            background: #f6f8fa;
+            padding: 16px;
+            overflow: auto;
+            border-radius: 6px;
+        }
+        a { color: #0366d6; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .nav {
+            background: #f6f8fa;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 6px;
+        }
+        .nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav li {
+            display: inline-block;
+            margin-right: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="governance.html">Governance</a></li>
+            <li><a href="Draft_%20Property%20Data%20Trust%20Framework%202%20Specification.html">Framework Spec</a></li>
+            <li><a href="Draft_%20PDTF%20Participant%20DID%20Auth%20OAuth%202%20Specification.html">OAuth Spec</a></li>
+            <li><a href="../">Registry</a></li>
+        </ul>
+    </nav>
+    <main>
+<h1>Property Data Trust Framework Governance</h1>
+<h2>1. Governance Principles</h2>
+<ul>
+<li><strong>Transparency:</strong> All rules, schemas, and onboarding processes are publicly documented.</li>
+<li><strong>Interoperability:</strong> Use W3C VC Data Model, DID-based identifiers, and OID4VC for interoperability.</li>
+<li><strong>Privacy by Design:</strong> Data minimization and selective disclosure enforced.</li>
+<li><strong>Compliance:</strong> Adherence to local property and data protection regulations (e.g., GDPR).</li>
+</ul>
+<hr>
+<h2>2. Governance Layers</h2>
+<h3>A. Business Layer</h3>
+<p>Defines <strong>who participates</strong> and <strong>under what rules</strong>.</p>
+<h4>Key Roles</h4>
+<ul>
+<li><strong>Governance Authority (GA):</strong><ul>
+<li>Maintains the trust framework.</li>
+<li>Defines compliance requirements.</li>
+<li>Approves schemas for property data (e.g., property title, energy efficiency).</li>
+</ul>
+</li>
+<li><strong>Accredited Issuer:</strong><ul>
+<li>Verified organizations (e.g., land registries, surveyors) allowed to issue property VCs.</li>
+<li>Must pass onboarding and legal agreements.</li>
+</ul>
+</li>
+<li><strong>Holder:</strong><ul>
+<li>Property owners, brokers, or platforms storing VCs in wallets.</li>
+</ul>
+</li>
+<li><strong>Verifier:</strong><ul>
+<li>Real estate portals, banks, insurers, or government agencies verifying VCs before transactions.</li>
+</ul>
+</li>
+<li><strong>Trust Registry Operator:</strong><ul>
+<li>Publishes list of approved Issuers and their DIDs.</li>
+<li>Maintains active/revoked status.</li>
+</ul>
+</li>
+</ul>
+<h4>Onboarding Policies</h4>
+<ul>
+<li><strong>Issuer Onboarding:</strong><ul>
+<li>KYC/KYB verification of the entity.</li>
+<li>Signed legal agreement.</li>
+<li>DID registration in Trust Registry.</li>
+</ul>
+</li>
+<li><strong>Verifier Onboarding:</strong><ul>
+<li>Optional accreditation for higher-assurance verification.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3>B. Technical Layer</h3>
+<p>Defines <strong>how trust is implemented</strong>.</p>
+<ul>
+<li><strong>Identifiers:</strong> DIDs (e.g., did:key, did:web, or did:ion).</li>
+<li><strong>Credentials:</strong> W3C Verifiable Credentials using property schemas.</li>
+<li><strong>Proof Mechanism:</strong> Linked Data Proofs or JSON Web Signatures.</li>
+<li><strong>Presentation Exchange:</strong> OID4VP for verification flows.</li>
+<li><strong>Revocation:</strong> Status List 2021 or equivalent.</li>
+</ul>
+<hr>
+<h3>C. Legal Layer</h3>
+<p>Defines enforceable agreements and liability.</p>
+<ul>
+<li><strong>Terms of Use:</strong><ul>
+<li>GA → Issuers: Compliance obligations, liability for false data.</li>
+<li>GA → Verifiers: Conditions for VC acceptance and risk allocation.</li>
+<li>Issuers → Holders: Data ownership and consent.</li>
+</ul>
+</li>
+<li><strong>Dispute Resolution:</strong><ul>
+<li>Arbitration and compliance escalation defined in governance documents.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2>3. Trust Registry</h2>
+<ul>
+<li><strong>Purpose:</strong> Provides verifiers with authoritative list of accredited issuers.</li>
+<li><strong>Format:</strong> Public JSON-LD document containing:<ul>
+<li>Issuer DID</li>
+<li>Organization legal name</li>
+<li>Status (active/revoked)</li>
+<li>Credential types authorized</li>
+</ul>
+</li>
+<li><strong>Mechanism:</strong> Signed by Governance Authority for authenticity.</li>
+</ul>
+<hr>
+<h2>4. Credential Schema Governance</h2>
+<ul>
+<li><strong>Schema Approval Process:</strong><ul>
+<li>GA defines review board for schema proposals.</li>
+<li>Open consultation for new property-related schemas.</li>
+</ul>
+</li>
+<li><strong>Example Schemas:</strong><ul>
+<li><code>PropertyTitleCredential</code></li>
+<li><code>EnergyPerformanceCredential</code></li>
+<li><code>ValuationReportCredential</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2>5. Assurance Levels</h2>
+<ul>
+<li><strong>AL1:</strong> Self-asserted data (low trust, no issuer accreditation).</li>
+<li><strong>AL2:</strong> Issued by accredited property professionals (medium trust).</li>
+<li><strong>AL2:</strong> Issued by trusted proxy on behalf of an offical primary authority (medium trust).</li>
+<li><strong>AL4:</strong> Issued by official primary authority (high trust, legal validity).</li>
+</ul>
+<hr>
+<h2>Next Steps</h2>
+<h3><strong>1. Create Visual Diagram</strong></h3>
+<ul>
+<li><strong>Goal:</strong> Show the interaction between GA, Issuers, Holders, Verifiers, and Trust Registry.</li>
+<li><strong>Deliverable:</strong> SVG/PNG diagram for documentation and presentations.</li>
+<li><strong>Owner:</strong> [Assign team member]</li>
+</ul>
+<h3><strong>2. Draft Governance Document Template</strong></h3>
+<ul>
+<li><strong>Goal:</strong> A JSON-LD or YAML template for describing the governance policies in machine-readable format.</li>
+<li><strong>Includes:</strong> Roles, onboarding rules, trust registry URL, schema references.</li>
+<li><strong>Owner:</strong> [Assign team member]</li>
+</ul>
+<h3><strong>3. Develop Terms of Use &amp; Onboarding Policies</strong></h3>
+<ul>
+<li><strong>Goal:</strong> Draft legal text for:<ul>
+<li>Issuer onboarding requirements</li>
+<li>Verifier conditions</li>
+<li>Liability and compliance</li>
+</ul>
+</li>
+<li><strong>Owner:</strong> [Assign team member]</li>
+</ul>
+<h3><strong>4. Build Trust Registry Prototype</strong></h3>
+<ul>
+<li><strong>Goal:</strong> Implement a public registry (API + signed JSON-LD document) listing accredited issuers.</li>
+<li><strong>Owner:</strong> [Assign team member]</li>
+</ul>
+<h3><strong>5. Define Credential Schemas</strong></h3>
+<ul>
+<li><strong>Goal:</strong> Create JSON-LD schemas for:<ul>
+<li>TransactionCredential</li>
+<li>PropertyCredential</li>
+<li>ParticipantCredential</li>
+<li>TitleCredential</li>
+</ul>
+</li>
+<li><strong>Owner:</strong> [Assign team member]</li>
+</ul>
+<h3><strong>6. Decide on DID Method</strong></h3>
+<ul>
+<li><strong>Goal:</strong> Choose DID method (did:web, did:ion, etc.) for governance authority and issuers.</li>
+<li><strong>Owner:</strong> [Assign team member]</li>
+</ul>
+<h3><strong>7. Revocation &amp; Status Mechanism</strong></h3>
+<ul>
+<li><strong>Goal:</strong> Implement Status List 2021 or alternative for credential revocation.</li>
+<li><strong>Owner:</strong> [Assign team member]</li>
+</ul>
+<hr>
+<h2>References</h2>
+<ul>
+<li><a href="https://www.w3.org/TR/vc-data-model/">W3C VC Data Model</a></li>
+<li><a href="https://trustoverip.org/">Trust over IP Foundation</a></li>
+<li><a href="https://ec.europa.eu/digital-strategy/our-policies/european-blockchain-services-infrastructure_en">EBSI Trust Framework</a></li>
+<li><a href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html">OpenID for Verifiable Credentials</a></li>
+</ul>
+    </main>
+</body>
+</html>

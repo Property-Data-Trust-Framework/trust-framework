@@ -1,0 +1,50 @@
+{
+  "name": "@pdtf/trust-framework",
+  "version": "0.3.0",
+  "description": "Property Data Trust Framework - Tools and utilities for PDTF participants",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "lib/",
+    "schemas/",
+    "docs/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-docs": "./examples/build-docs-local.sh",
+    "lint": "echo \"No linting configured yet\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "pdtf",
+    "property-data",
+    "trust-framework",
+    "verifiable-credentials",
+    "did",
+    "property-transactions"
+  ],
+  "author": "Property Data Trust Framework",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Property-Data-Trust-Framework/trust-framework.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Property-Data-Trust-Framework/trust-framework/issues"
+  },
+  "homepage": "https://trust.propdata.org.uk",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

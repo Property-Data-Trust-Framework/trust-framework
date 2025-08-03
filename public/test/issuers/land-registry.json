@@ -1,0 +1,12 @@
+{
+  "id": "did:web:registry.moverly.com#land-registry",
+  "name": "UK Land Registry Authority",
+  "type": "LandRegistry",
+  "verificationMethod": {
+    "id": "#key-1",
+    "type": "Ed25519VerificationKey2018",
+    "controller": "did:web:registry.moverly.com",
+    "publicKeyBase58": "7sL6Vm4FZT4qFSE7Anhz4vxMkz4x8rm9wErmB9RCw8Ls"
+  },
+  "termsOfIssuance": "https://registry.moverly.com/terms/land-registry"
+}

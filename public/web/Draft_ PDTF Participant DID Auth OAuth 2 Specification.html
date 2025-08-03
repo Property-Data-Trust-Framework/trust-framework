@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>uDraft_ PDTF Participant DID Auth OAuth 2 Specification - Property Data Trust Framework</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            color: #24292e;
+        }
+        h1, h2, h3 { color: #0366d6; }
+        code { 
+            background: #f6f8fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-size: 85%;
+        }
+        pre {
+            background: #f6f8fa;
+            padding: 16px;
+            overflow: auto;
+            border-radius: 6px;
+        }
+        a { color: #0366d6; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .nav {
+            background: #f6f8fa;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 6px;
+        }
+        .nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav li {
+            display: inline-block;
+            margin-right: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="governance.html">Governance</a></li>
+            <li><a href="Draft_%20Property%20Data%20Trust%20Framework%202%20Specification.html">Framework Spec</a></li>
+            <li><a href="Draft_%20PDTF%20Participant%20DID%20Auth%20OAuth%202%20Specification.html">OAuth Spec</a></li>
+            <li><a href="../">Registry</a></li>
+        </ul>
+    </nav>
+    <main>
+<h1>Draft: PDTF Participant DID Auth OAuth 2 Specification</h1>
+<h2>1. Overview</h2>
+<p>This specification describes a secure, decentralized authentication and authorization protocol for machine-to-machine (M2M) clients using Decentralized Identifiers (DIDs) and OAuth 2.0. The protocol scopes access tokens to specific transactions, allowing access control based on the role of the DID in a property transaction using the Property Data Trust Framework (PDTF).</p>
+<h2>2. Use Case</h2>
+<p>A client in the PDTF ecosystem needs to access APIs related to a specific property transaction. The client holds a DID and proves control over it using DID Auth (challenge-response). The Authorization Server issues an access token scoped to the transaction, including the client&#39;s role (e.g., buyer, seller, solicitor).</p>
+<h2>3. Protocol Components</h2>
+<ul>
+<li><strong>Client</strong>: A backend system that holds a DID and its associated private key.  </li>
+<li><strong>Authorization Server (AS)</strong>: Issues challenges, verifies DID proofs, and issues access tokens.  </li>
+<li><strong>Resource Server (RS)</strong>: Hosts protected APIs related to property transactions.</li>
+</ul>
+<h2>4. Protocol Flow</h2>
+<h3>Step-by-Step</h3>
+<ol>
+<li><p><strong>Challenge Request</strong>  </p>
+<ul>
+<li>Endpoint: <code>POST /oauth/did/challenge</code>  </li>
+<li>Request:</li>
+</ul>
+</li>
+</ol>
+<pre><code class="language-javascript">{
+  &quot;client_did&quot;: &quot;did:example:client1&quot;
+}
+</code></pre>
+<ol start="2">
+<li><p><strong>Challenge Response</strong>  </p>
+<ul>
+<li>The AS generates and stores:  <ul>
+<li><code>challenge</code> (nonce)  </li>
+<li><code>request_id</code>  </li>
+<li><code>expires_at</code></li>
+</ul>
+</li>
+<li>Response:</li>
+</ul>
+</li>
+</ol>
+<pre><code class="language-javascript">{
+  &quot;challenge&quot;: &quot;nonce-abc-123&quot;,
+  &quot;request_id&quot;: &quot;req-789&quot;,
+  &quot;expires_at&quot;: &quot;2025-03-26T12:00:00Z&quot;
+}
+</code></pre>
+<ol start="3">
+<li><p><strong>Client Signs Challenge</strong>  </p>
+<ul>
+<li>The client signs the challenge using its private key.  </li>
+<li>Payload:</li>
+</ul>
+</li>
+</ol>
+<pre><code class="language-javascript">{
+  &quot;request_id&quot;: &quot;req-789&quot;,
+  &quot;client_did&quot;: &quot;did:example:client1&quot;,
+  &quot;proof&quot;: {
+    &quot;type&quot;: &quot;Ed25519Signature2020&quot;,
+    &quot;created&quot;: &quot;2025-03-26T11:58:00Z&quot;,
+    &quot;challenge&quot;: &quot;nonce-abc-123&quot;,
+    &quot;proofPurpose&quot;: &quot;authentication&quot;,
+    &quot;verificationMethod&quot;: &quot;did:example:client1#key-1&quot;,
+    &quot;signature&quot;: &quot;base64(signature)&quot;
+  }
+}
+</code></pre>
+<ol start="4">
+<li><p><strong>Token Issuance</strong>  </p>
+<ul>
+<li>The AS verifies:  <ul>
+<li>Challenge is valid, unexpired, and unused  </li>
+<li>DID Document resolution and signature validity  </li>
+<li>Client&#39;s role and transaction involvement</li>
+</ul>
+</li>
+<li>Access token is issued (JWT):</li>
+</ul>
+</li>
+</ol>
+<pre><code class="language-javascript">{
+  &quot;access_token&quot;: &quot;eyJhbGciOi...&quot;,
+  &quot;token_type&quot;: &quot;Bearer&quot;,
+  &quot;expires_in&quot;: 3600
+}
+</code></pre>
+<h2>5. Decoded JWT Access Token Structure</h2>
+<pre><code class="language-javascript">{
+  &quot;sub&quot;: &quot;did:example:client1&quot;,
+  &quot;txn_id&quot;: &quot;tx-456789&quot;,
+  &quot;role&quot;: &quot;buyer&quot;,
+  &quot;iss&quot;: &quot;https://auth.example.com&quot;,
+  &quot;aud&quot;: &quot;https://api.example.com&quot;,
+  &quot;exp&quot;: 1711470600
+}
+</code></pre>
+<h2>6. Authorization Logic (on Resource Server)</h2>
+<ul>
+<li>Validate token signature and expiration  </li>
+<li>Extract <code>txn_id</code> and <code>role</code>  </li>
+<li>Match request context (e.g., route parameter <code>txn_id</code>) to token  </li>
+<li>Enforce access based on role</li>
+</ul>
+<p>Example Pseudocode:</p>
+<pre><code class="language-javascript">if (token.txn_id !== request.txn_id) {
+  return res.status(403).send(&quot;Invalid transaction context&quot;);
+}
+
+if (token.role === &quot;buyer&quot;) {
+  allow();
+} else if (token.role === &quot;seller&quot;) {
+  allow();
+} else {
+  return res.status(403).send(&quot;Not permitted for role&quot;);
+}
+</code></pre>
+<h2>7. Challenge Store</h2>
+<p>The AS temporarily stores challenge records:</p>
+<table>
+<thead>
+<tr>
+<th align="left">request_id</th>
+<th align="left">nonce</th>
+<th align="left">client_did</th>
+<th align="left">expires_at</th>
+<th align="left">used</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">req-789</td>
+<td align="left">nonce-abc-123</td>
+<td align="left">did:example:client1</td>
+<td align="left">2025-03-26T12:00:00Z</td>
+<td align="left">false</td>
+</tr>
+</tbody></table>
+<h2>8. Security Considerations</h2>
+<ul>
+<li>Use short-lived challenges and tokens  </li>
+<li>Invalidate used challenges  </li>
+<li>Ensure DID Document resolution is secure and up-to-date  </li>
+<li>Optionally bind tokens to proof-of-possession keys (DPoP)</li>
+</ul>
+<h2>9. Diagram</h2>
+<pre><code>Client                         Authorization Server
+  |                                     |
+  | --(1) Request Challenge (DID)------&gt;|
+  |                                     |
+  |&lt;--(2) Challenge + Request ID--------|
+  |                                     |
+  | --(3) Signed Proof + Request ID---&gt;|
+  |                                     |
+  |  [Verify Signature &amp; Challenge]     |
+  |  [Issue Transaction-Scoped Token]   |
+  |&lt;------------(4) Access Token--------|
+  |                                     |
+  |-- Use token to access txn APIs --&gt; Resource Server
+</code></pre>
+<hr>
+<p>This specification provides a complete end-to-end flow for DID-based M2M authentication, with transaction-scoped authorization built into the access token itself, based entirely on role-based access control.  </p>
+    </main>
+</body>
+</html>
