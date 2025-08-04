@@ -1,0 +1,89 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://trust.propdata.org.uk/contexts/pdtf/v1"
+  ],
+  "id": "https://trust.propdata.org.uk/test/trusted-issuers-registry.json",
+  "type": "TrustedIssuersRegistry",
+  "name": "PDTF Trusted Issuers Registry",
+  "description": "Registry of trusted issuers for the Property Data Trust Framework",
+  "version": "1.0.0",
+  "publishedDate": "2024-08-03T00:00:00Z",
+  "validUntil": "2025-08-03T00:00:00Z",
+  "issuer": "did:web:trust.propdata.org.uk",
+  "trustedIssuers": [
+    {
+      "id": "did:web:trust.propdata.org.uk#epc-issuer",
+      "name": "GreenCert Ltd.",
+      "type": "EnergyCertificateIssuer",
+      "status": "active",
+      "accreditedSince": "2024-01-15T00:00:00Z",
+      "credentialTypes": [
+        "EnergyPerformanceCertificate",
+        "EnergyAssessmentReport"
+      ],
+      "verificationMethod": {
+        "id": "#key-1",
+        "type": "Ed25519VerificationKey2018",
+        "controller": "did:web:trust.propdata.org.uk",
+        "publicKeyBase58": "5HpN3BCV5XZJLcCtW7GQ4Jg9pW3NSvZmLHu5btgBxyF3"
+      },
+      "termsOfIssuance": "https://trust.propdata.org.uk/terms/epc-issuer",
+      "contactInfo": {
+        "website": "https://greencert.co.uk",
+        "email": "support@greencert.co.uk"
+      }
+    },
+    {
+      "id": "did:web:trust.propdata.org.uk#land-registry",
+      "name": "UK Land Registry Authority",
+      "type": "LandRegistry",
+      "status": "active",
+      "accreditedSince": "2024-01-01T00:00:00Z",
+      "credentialTypes": [
+        "PropertyOwnershipCertificate",
+        "LandRegistryExtract",
+        "PropertyTitleDocument"
+      ],
+      "verificationMethod": {
+        "id": "#key-1",
+        "type": "Ed25519VerificationKey2018",
+        "controller": "did:web:trust.propdata.org.uk",
+        "publicKeyBase58": "7sL6Vm4FZT4qFSE7Anhz4vxMkz4x8rm9wErmB9RCw8Ls"
+      },
+      "termsOfIssuance": "https://trust.propdata.org.uk/terms/land-registry",
+      "contactInfo": {
+        "website": "https://www.gov.uk/government/organisations/land-registry",
+        "email": "customer.service@landregistry.gov.uk"
+      }
+    },
+    {
+      "id": "did:web:trust.propdata.org.uk#surveyor-guild",
+      "name": "Royal Institute of Chartered Surveyors",
+      "type": "SurveyorAuthority",
+      "status": "active",
+      "accreditedSince": "2024-02-01T00:00:00Z",
+      "credentialTypes": [
+        "PropertySurveyReport",
+        "StructuralSurveyReport",
+        "PropertyValuationReport"
+      ],
+      "verificationMethod": {
+        "id": "#key-1",
+        "type": "Ed25519VerificationKey2018",
+        "controller": "did:web:trust.propdata.org.uk",
+        "publicKeyBase58": "9jK8Lm2NpQ5rS8tU7vW3xY4zA1bC6dE9fG2hI5jK8lM"
+      },
+      "termsOfIssuance": "https://trust.propdata.org.uk/terms/surveyor-guild",
+      "contactInfo": {
+        "website": "https://www.rics.org",
+        "email": "contactrics@rics.org"
+      }
+    }
+  ],
+  "governanceFramework": {
+    "accreditationProcess": "https://trust.propdata.org.uk/governance/accreditation-process",
+    "complianceRequirements": "https://trust.propdata.org.uk/governance/compliance",
+    "disputeResolution": "https://trust.propdata.org.uk/governance/disputes"
+  }
+}
