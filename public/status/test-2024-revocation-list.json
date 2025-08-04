@@ -1,0 +1,24 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/vc/bitstring-status-list/2023/v1"
+  ],
+  "id": "https://trust.propdata.org.uk/status/test-2024-revocation-list.json",
+  "type": ["VerifiableCredential", "BitstringStatusListCredential"],
+  "issuer": "did:web:trust.propdata.org.uk",
+  "issuanceDate": "2024-01-01T00:00:00Z",
+  "expirationDate": "2025-01-01T00:00:00Z",
+  "credentialSubject": {
+    "id": "https://trust.propdata.org.uk/status/test-2024-revocation-list.json#list",
+    "type": "BitstringStatusList",
+    "statusPurpose": "revocation",
+    "encodedList": "H4sIAAAAAAAAA-3BMQEAAADCoPVPbQwfoAAAAAAAAAAAAAAAAAAAAIC3AYbSVKsAQAAA"
+  },
+  "proof": {
+    "type": "Ed25519Signature2020",
+    "created": "2024-01-01T00:00:00Z",
+    "verificationMethod": "did:web:trust.propdata.org.uk#keys-1",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "z3MvGX8JNMh...example-proof-value"
+  }
+}
