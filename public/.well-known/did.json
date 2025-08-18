@@ -1,0 +1,11 @@
+{
+  "@context": "https://w3id.org/did/v1",
+  "id": "did:web:registry.moverly.com",
+  "verificationMethod": [{
+    "id": "#key-1",
+    "type": "Ed25519VerificationKey2018",
+    "controller": "did:web:registry.moverly.com",
+    "publicKeyBase58": "3MxtEjxKHcyRkT6oGZ2UUnpM4r2cz3M1XZh8B2J3AfQV"
+  }],
+  "authentication": ["#key-1"]
+}
