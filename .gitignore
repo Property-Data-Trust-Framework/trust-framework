@@ -2,3 +2,5 @@ local*
 .idea
 dist
 agent.yml
+.DS_Store
+**/.DS_Store
