@@ -142,7 +142,7 @@ if (result.valid) {
 
 ## 📚 Resources
 
-- [Development Plan](plan.md) - Comprehensive roadmap for building the trust framework
+- [Development Plan](docs/plan.md) - Comprehensive roadmap for building the trust framework
 - [W3C Verifiable Credentials](https://www.w3.org/TR/vc-data-model/)
 - [DID Web Specification](https://w3c-ccg.github.io/did-method-web/)
 - [Property Data Trust Framework Documentation](/docs/)
