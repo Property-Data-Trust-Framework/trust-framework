@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Data Trust Framework Documentation</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            color: #24292e;
+        }
+        h1, h2, h3 { color: #0366d6; }
+        code { 
+            background: #f6f8fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-size: 85%;
+        }
+        pre {
+            background: #f6f8fa;
+            padding: 16px;
+            overflow: auto;
+            border-radius: 6px;
+        }
+        a { color: #0366d6; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .nav {
+            background: #f6f8fa;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 6px;
+        }
+        .nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav li {
+            display: inline-block;
+            margin-right: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="web/governance.html">Governance</a></li>
+            <li><a href="web/Draft_%20Property%20Data%20Trust%20Framework%202%20Specification.html">Framework Spec</a></li>
+            <li><a href="web/Draft_%20PDTF%20Participant%20DID%20Auth%20OAuth%202%20Specification.html">OAuth Spec</a></li>
+            <li><a href="./">Registry</a></li>
+        </ul>
+    </nav>
+    <main>
+<h1>Property Data Trust Framework</h1>
+<p>This repository serves as the central source for the <strong>Property Data Trust Framework (PDTF)</strong>, providing:</p>
+<ul>
+<li><strong>Specification Documents</strong>: Technical standards and protocols for property data exchange</li>
+<li><strong>Implementation Guides</strong>: Step-by-step guides for participants and developers</li>
+<li><strong>Verifiable Data Registry</strong>: Registry for property transaction credentials based on <a href="https://www.w3.org/TR/vc-data-model/">W3C Verifiable Credentials</a></li>
+<li><strong>Utilities &amp; Example Code</strong>: Reference implementations and tools for framework participants</li>
+</ul>
+<h2>📋 Key Components</h2>
+<h3>1. Specifications &amp; Documentation</h3>
+<ul>
+<li>Framework specifications defining data standards and protocols</li>
+<li>Governance documentation for trust framework operations</li>
+<li>Implementation and usage guides for participants</li>
+</ul>
+<h3>2. Verifiable Data Registry</h3>
+<ul>
+<li>Uses <strong><code>did:web</code></strong> for interoperability</li>
+<li>Stores registry content (schemas, credential status, issuers) in <strong>Git</strong> for auditability</li>
+<li>Deployed as a static site using <strong>GitHub Pages</strong> and <strong>GitHub Actions</strong></li>
+</ul>
+<h3>3. Tools &amp; Utilities</h3>
+<ul>
+<li>Example code for credential issuance and verification</li>
+<li>Reference implementations for common use cases</li>
+<li>Testing utilities for framework compliance</li>
+</ul>
+<hr>
+<h2>🔍 Why This Registry?</h2>
+<p>Property transactions involve multiple parties and require verifiable data such as:</p>
+<ul>
+<li>Transaction information</li>
+<li>Property data</li>
+<li>Participant / Person credentials</li>
+<li>Property Title/Ownership information</li>
+</ul>
+<p>This registry serves as a <strong>trusted source of truth</strong> for:</p>
+<ul>
+<li>Credential Schemas</li>
+<li>Credential Status (valid/revoked)</li>
+<li>Trusted Issuer metadata</li>
+<li>Terms of issuance</li>
+</ul>
+<hr>
+<h2>✅ Features</h2>
+<ul>
+<li><strong>did:web Identifier</strong><pre><code>did:web:registry.moverly.com
+</code></pre>
+</li>
+<li><strong>Immutable &amp; Auditable</strong><ul>
+<li>All updates tracked in Git</li>
+<li>Commit history provides transparent version control</li>
+</ul>
+</li>
+<li><strong>Publicly Verifiable</strong><ul>
+<li>Anyone can verify registry contents via HTTPS and Git commits</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2>📂 Directory Structure</h2>
+<pre><code>.
+├── docs/                      # Specifications and guides (source)
+│   ├── governance.md          # Trust framework governance
+│   ├── *.md                   # Implementation guides &amp; specs
+├── public/                    # Static site content &amp; registry
+│   ├── .well-known/
+│   │   └── did.json          # DID document
+│   ├── schemas/              # Credential schemas
+│   │   └── epc-certificate.jsonld
+│   ├── status/               # Bitstring revocation lists
+│   │   └── test-2024-revocation-list.json
+│   ├── trusted-issuers-registry.json    # Trusted issuer registry
+│   └── web/                  # Auto-generated HTML documentation
+│       ├── index.html        # Documentation home page
+│       ├── governance.html   # HTML version of docs
+│       └── *.html            # Other documentation pages
+├── examples/                  # Example code and utilities
+└── .github/workflows/         # CI/CD workflows
+    └── build-docs.yml        # Auto-builds HTML from markdown
+</code></pre>
+<hr>
+<h2>📦 NPM Package</h2>
+<h3>Installation</h3>
+<pre><code class="language-bash">npm install @pdtf/trust-framework
+</code></pre>
+<h3>Usage</h3>
+<pre><code class="language-javascript">const { validateCredential } = require(&quot;@pdtf/trust-framework&quot;);
+
+// Validate a credential against a schema
+const result = await validateCredential(credential, &quot;epc-certificate&quot;);
+
+if (result.valid) {
+  console.log(&quot;Credential is valid&quot;);
+} else {
+  console.log(&quot;Validation errors:&quot;, result.errors);
+}
+</code></pre>
+<h3>Exports</h3>
+<ul>
+<li><strong>validateCredential</strong> - Validates credentials against PDTF schemas</li>
+<li><strong>PDTF_REGISTRY_URL</strong> - The trust framework registry URL</li>
+<li><strong>PDTF_DID</strong> - The trust framework DID identifier</li>
+</ul>
+<hr>
+<h2>🧠 Getting Started</h2>
+<h3>For Framework Participants</h3>
+<ol>
+<li>Review the governance documentation in <code>/docs/governance.md</code></li>
+<li>Follow the implementation guides for your use case</li>
+<li>Use the example code to integrate with your systems</li>
+</ol>
+<h3>For Developers</h3>
+<ol>
+<li>Explore the specification documents in <code>/docs/</code></li>
+<li>Check example implementations in <code>/examples/</code></li>
+<li>Test your integration using the provided utilities</li>
+</ol>
+<h3>For Contributors</h3>
+<ol>
+<li>Read the contribution guidelines</li>
+<li>Submit issues for bugs or feature requests</li>
+<li>Create pull requests for improvements</li>
+</ol>
+<hr>
+<h2>📚 Resources</h2>
+<ul>
+<li><a href="plan.md">Development Plan</a> - Comprehensive roadmap for building the trust framework</li>
+<li><a href="https://www.w3.org/TR/vc-data-model/">W3C Verifiable Credentials</a></li>
+<li><a href="https://w3c-ccg.github.io/did-method-web/">DID Web Specification</a></li>
+<li><a href="/docs/">Property Data Trust Framework Documentation</a></li>
+</ul>
+
+</main>
+</body>
+</html>
