@@ -56,11 +56,15 @@
             <main>
 <h1>Property Data Trust Framework Governance</h1>
 <h2>1. Governance Principles</h2>
+<p>The Property Data Trust Framework (PDTF) should align with the following principles:</p>
 <ul>
-<li><strong>Transparency:</strong> All rules, schemas, and onboarding processes are publicly documented.</li>
+<li><strong>Transparency:</strong> All rules, schemas, and onboarding processes are publicly documented. Clear processes and open communication about decisions and changes.</li>
 <li><strong>Interoperability:</strong> Use W3C VC Data Model, DID-based identifiers, and OID4VC for interoperability.</li>
 <li><strong>Privacy by Design:</strong> Data minimization and selective disclosure enforced.</li>
-<li><strong>Compliance:</strong> Adherence to local property and data protection regulations (e.g., GDPR).</li>
+<li><strong>Compliance:</strong> Adherence to local property and data protection regulations (e.g., UK GDPR, Data Protection Act 2018).</li>
+<li><strong>Inclusivity:</strong> PDTF governance is open to all OPDA members. Members are encouraged to invite opinions from other key stakeholders in the home buying and selling process.</li>
+<li><strong>Accountability:</strong> Clear roles, responsibilities, and mechanisms for decision-making and dispute resolution.</li>
+<li><strong>Adaptability:</strong> Ability to evolve based on feedback, technological advancements, and regulatory changes.</li>
 </ul>
 <hr>
 <h2>2. Governance Layers</h2>
@@ -132,7 +136,83 @@
 </li>
 </ul>
 <hr>
-<h2>3. Trust Registry</h2>
+<h2>3. Operational Governance Roles and Responsibilities</h2>
+<h3>A. Co-ordination</h3>
+<h4>Responsibilities</h4>
+<ul>
+<li>Maintain the overall vision and roadmap for the PDTF.</li>
+<li>Ensure alignment with the framework&#39;s principles (standardisation, interoperability, and transparency).</li>
+<li>Facilitate discussions, set agendas, and manage timelines for decisions.</li>
+<li>Escalate disputes to an ODPA, if consensus cannot be reached.</li>
+</ul>
+<h4>Composition</h4>
+<ul>
+<li>TBA</li>
+</ul>
+<h4>Processes</h4>
+<ul>
+<li>Decisions are made by majority agreement.</li>
+<li>Raising disputes to ODPA when wider governance is required.</li>
+</ul>
+<h3>B. Technical Review</h3>
+<h4>Responsibilities</h4>
+<ul>
+<li>Review and approve proposed technical changes to the schema.</li>
+<li>Maintain the integrity of the &quot;Stable&quot; areas of the schema and define criteria for changes.</li>
+<li>Ensure changes are interoperable and feasible for implementation.</li>
+<li>Ensure changes are backwards compatible with prior versions.</li>
+<li>Manage the submission, review, and approval of change proposals.</li>
+<li>Define and enforce structured processes for raising, documenting, and resolving issues.</li>
+<li>Maintain a log of all changes, including rationale and impact assessments.</li>
+</ul>
+<h4>Composition</h4>
+<ul>
+<li>All technical PDTF members</li>
+</ul>
+<h4>Processes</h4>
+<ul>
+<li>Technical proposals require approval from at least two members of the group.</li>
+<li>Maintain and ensure the change request process is followed.</li>
+<li>Maintain an architectural decision record.</li>
+<li>Maintain versioning of minor and major releases.</li>
+</ul>
+<h3>C. Compliance and Risk</h3>
+<h4>Responsibilities</h4>
+<ul>
+<li>Ensure PDTF complies with UK GDPR and other relevant data protection legislation.</li>
+<li>Assess and document the data protection impact of proposed changes.</li>
+<li>Maintain a log of compliance policies, non-compliance incidents, and their resolutions.</li>
+<li>Develop and enforce guidelines on the use of PII within the framework.</li>
+</ul>
+<h4>Composition</h4>
+<ul>
+<li>By nomination of any ODPA member organisation.</li>
+</ul>
+<h4>Processes</h4>
+<ul>
+<li>Compliance check of proposed major schema releases before release.</li>
+<li>Provide guidance for potential schema changes.</li>
+</ul>
+<h3>D. Engagement (Stakeholder Representation)</h3>
+<h4>Responsibilities</h4>
+<ul>
+<li>Encourage interactions from external stakeholders (e.g., conveyancers, estate agents, HMLR, buyers, and sellers).</li>
+<li>Gather and consolidate stakeholder feedback on roadmap priorities and schema changes.</li>
+<li>Notify impacted parties of proposed changes and invite comments.</li>
+<li>Promote transparency by publishing regular updates on the framework&#39;s progress.</li>
+</ul>
+<h4>Composition</h4>
+<ul>
+<li>TBA</li>
+</ul>
+<h4>Processes</h4>
+<ul>
+<li>Stakeholder feedback is summarised and presented for consideration.</li>
+<li>Regular interactions with external stakeholders.</li>
+<li>Regular publishing of findings related to PDTF.</li>
+</ul>
+<hr>
+<h2>4. Trust Registry</h2>
 <ul>
 <li><strong>Purpose:</strong> Provides verifiers with authoritative list of accredited issuers.</li>
 <li><strong>Format:</strong> Public JSON-LD document containing:<ul>
@@ -168,7 +248,123 @@
 <li><strong>AL4:</strong> Issued by official primary authority (high trust, legal validity).</li>
 </ul>
 <hr>
-<h2>Next Steps</h2>
+<h2>6. Change Management Process</h2>
+<h3>Standard Operating Procedure (SOP) for PDTF Schema Changes</h3>
+<p>This process applies to all contributors and stakeholders proposing changes to the PDTF schema. This SOP does not differentiate between the type of work being performed. Review on whether changes should be included in the schema needs to be determined elsewhere.</p>
+<h4>Process Overview</h4>
+<ol>
+<li><strong>Submission</strong></li>
+<li><strong>Implementation</strong></li>
+<li><strong>Impact Assessment</strong></li>
+<li><strong>Review</strong></li>
+<li><strong>Documentation</strong></li>
+<li><strong>Approval</strong></li>
+<li><strong>Stakeholder Notification</strong></li>
+<li><strong>Release</strong></li>
+</ol>
+<h4>Process Flow</h4>
+<h5>Submission</h5>
+<ul>
+<li><strong>Submit a GitHub issue for the proposed change</strong>:<ul>
+<li>Submit the proposal using the Standard Change Proposal Form (Template to be generated).</li>
+<li><strong>Required fields</strong>:<ul>
+<li><strong>Change Reference Identifier</strong>: To be referenced in the architecture decision record.</li>
+<li><strong>Change Type</strong>: Change or bug fix.</li>
+<li><strong>Change Reason</strong>: Justification for the change.</li>
+<li><strong>Technical Details</strong>: Description of the proposed modification.</li>
+<li><strong>Impacted Areas</strong>: Schema elements to be changed. Highlight if any &quot;stable&quot; areas of the schema will be changed as a priority.</li>
+<li><strong>Stakeholder Impact</strong>: Organisations or individuals affected.</li>
+</ul>
+</li>
+<li><strong>Author&#39;s Responsibilities</strong>:<ul>
+<li>Ensure alignment with the PDTF roadmap.</li>
+<li>Determine if comments from technical reviewers are needed before implementation begins.</li>
+<li>Gain consensus upfront to increase the likelihood of approval for release.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5>Implementation</h5>
+<ul>
+<li>Complete implementation in a new branch linked to the issue raised.</li>
+</ul>
+<h5>Impact Assessment</h5>
+<ul>
+<li>Conduct an impact assessment to address risks and compliance concerns.</li>
+<li>Refer to the associated Impact Assessment Form for guidance.</li>
+</ul>
+<h5>Review</h5>
+<ul>
+<li><strong>Pull Request</strong>:<ul>
+<li>Raise a pull request to the <code>next</code> branch and invite Technical Reviewers to review.</li>
+<li><strong>Approval Requirements</strong>:<ul>
+<li>At least <em>X</em> Technical Reviewers must approve promotion to the <code>next</code> branch.</li>
+<li>Higher barriers for changes to &quot;stable&quot; schema elements or those impacting backwards compatibility.</li>
+</ul>
+</li>
+<li>Resolve issues highlighted during the review process.</li>
+<li>Upon completion of the review, promote the change to the <code>next</code> branch.</li>
+<li><strong>Branch Management</strong>:<ul>
+<li>Squash incoming commits for easier cherry-picking.</li>
+<li>Retain and archive completed change branches.</li>
+<li>Link completed pull requests to the corresponding raised issue.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5>Documentation</h5>
+<ul>
+<li>Update all relevant documentation to reflect the change.</li>
+</ul>
+<h5>Approval</h5>
+<ul>
+<li><strong>Stakeholder Communication</strong>:<ul>
+<li>Notify stakeholders of proposed changes moving from <code>next</code> to <code>master</code> and allow feedback.</li>
+<li>Include the following in the communication:<ul>
+<li><strong>Change Reference Identifier</strong>: Link to the original GitHub issue or proposal.</li>
+<li><strong>Description</strong>: Summary of the proposed change, including purpose and impact.</li>
+<li><strong>Breaking Changes</strong>: Highlight backwards compatibility issues and suggested mitigations.</li>
+<li><strong>Date of Intended Merge</strong>: Provide a minimum of <em>X</em> working days for feedback.</li>
+</ul>
+</li>
+<li><strong>Approval Requirements</strong>:<ul>
+<li>For standard changes: At least two reviewers from different stakeholders.</li>
+<li>For stable schema changes or backwards compatibility implications: <ul>
+<li>Higher barriers such as three reviewers or broader consensus.</li>
+</ul>
+</li>
+<li>Conduct additional compliance and risk assessments if needed.</li>
+</ul>
+</li>
+<li>Consider stakeholder versions when scheduling releases.</li>
+</ul>
+</li>
+<li><strong>Final Approval</strong>:<ul>
+<li>Merge approved changes into the <code>master</code> branch.</li>
+<li>Link all associated issues in the pull request.</li>
+<li>Tag the commit with a custom release version.</li>
+</ul>
+</li>
+</ul>
+<h5>Stakeholder Notification</h5>
+<ul>
+<li><strong>Notification Steps</strong>:<ul>
+<li>Notify stakeholders of changes, especially for unstable schema parts or non-breaking changes.</li>
+<li>For breaking or stability changes, notify stakeholders before the approval step.</li>
+<li>Use the Change Notification Template for standard changes.</li>
+<li>Use the Breaking Change Notification Template for stability or breaking changes.</li>
+</ul>
+</li>
+</ul>
+<h5>Release</h5>
+<ul>
+<li>Once fully approved, the release is considered operational.</li>
+<li>Stakeholder organisations are advised to update the Stakeholder Version Register to ensure transparency within the ecosystem regarding their level of PDTF integration.</li>
+</ul>
+<hr>
+<h2>7. Next Steps</h2>
 <h3><strong>1. Create Visual Diagram</strong></h3>
 <ul>
 <li><strong>Goal:</strong> Show the interaction between GA, Issuers, Holders, Verifiers, and Trust Registry.</li>
