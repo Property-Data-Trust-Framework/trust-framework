@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>uproposal - Property Data Trust Framework</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            color: #24292e;
+        }
+        h1, h2, h3 { color: #0366d6; }
+        code { 
+            background: #f6f8fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-size: 85%;
+        }
+        pre {
+            background: #f6f8fa;
+            padding: 16px;
+            overflow: auto;
+            border-radius: 6px;
+        }
+        a { color: #0366d6; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .nav {
+            background: #f6f8fa;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 6px;
+        }
+        .nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav li {
+            display: inline-block;
+            margin-right: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="governance.html">Governance</a></li>
+            <li><a href="Draft_%20Property%20Data%20Trust%20Framework%202%20Specification.html">Framework Spec</a></li>
+            <li><a href="Draft_%20PDTF%20Participant%20DID%20Auth%20OAuth%202%20Specification.html">OAuth Spec</a></li>
+            <li><a href="../">Registry</a></li>
+        </ul>
+    </nav>
+    <main>
+<h1>Technical Implementation Proposal</h1>
+<h2>Preamble</h2>
+<p>The Property Data Trust Framework represents a transformative initiative that will establish the technical foundation for secure, interoperable property data exchange across the UK property ecosystem. This work will create standardized verifiable credentials infrastructure that enables trusted data sharing between property professionals, financial institutions, government bodies, and other stakeholders while maintaining privacy and security.</p>
+<p><strong>Building on v1.0 foundations, this v2.0 Framework delivers critical improvements:</strong></p>
+<ul>
+<li><p><strong>Comprehensive Entity Modeling</strong>: Unlike v1.0&#39;s limited scope, v2.0 correctly models the full spectrum of property ecosystem entities—transactions, property titles/ownership, participant credentials, and detailed property data—ensuring accurate representation of complex real-world relationships and dependencies.</p>
+</li>
+<li><p><strong>Robust Permissions &amp; Authorization</strong>: v2.0 introduces sophisticated OAuth/OIDC integration and granular permission frameworks that were absent in v1.0, enabling fine-grained access control, secure API interactions, and enterprise-grade authorization mechanisms that meet regulatory and compliance requirements.</p>
+</li>
+<li><p><strong>Advanced Terms of Use Mechanisms</strong>: The Framework now includes comprehensive terms of service infrastructure, participant agreement templates, and automated compliance checking—addressing v1.0&#39;s gaps in legal Framework integration and ensuring all data exchanges operate within clearly defined legal boundaries.</p>
+</li>
+<li><p><strong>Fully Digitally Verifiable Provenance</strong>: v2.0 implements complete cryptographic audit trails using W3C Verifiable Credentials standards, Bitstring Status Lists for revocation, and immutable provenance tracking—delivering the end-to-end verification capabilities that v1.0 lacked.</p>
+</li>
+</ul>
+<p>The Framework&#39;s value extends beyond technical specifications—it will reduce transaction friction, eliminate redundant data collection, improve data quality and provenance, and enable new innovative services built on verified property data. By establishing common standards and reference implementations, this work will accelerate ecosystem-wide adoption and ensure consistent, reliable interoperability.</p>
+<p><strong>All development will be conducted in close collaboration with Open Property Data Association (OPDA) members</strong>, ensuring that the technical solutions address real-world requirements and industry best practices. Regular consultation with OPDA stakeholders will guide design decisions, validate implementations, and ensure the Framework meets the diverse needs of the property data ecosystem.</p>
+<h2>Overview</h2>
+<p>This proposal outlines the technical implementation tasks from the Property Data Trust Framework Development Plan, focusing on core infrastructure development. The proposal covers Technical Standards (1.2), Registry Implementation (Phase 2), Core NPM Package (3.1), Implementation Guides &amp; Documentation (Phase 4), Reference Implementations (Phase 5), and Test Infrastructure (6.1).</p>
+<p><strong>Excluded from this proposal</strong> are non-technical governance activities (1.1, 1.3), non-JavaScript SDKs (3.2), developer utilities beyond the core package (3.3), certification programs (6.2, 6.3), and ecosystem development activities (Phase 7). These components will be addressed in separate initiatives or future phases.</p>
+<h2>1.2 Technical Standards</h2>
+<h3>Tasks</h3>
+<ul>
+<li>Complete PDTF Framework Specification v2.0</li>
+<li>Finalize OAuth/OIDC integration specification  </li>
+<li>Define credential schema governance process</li>
+<li>Establish versioning and deprecation policies</li>
+<li>Create security requirements documentation</li>
+<li>Define privacy and data protection standards</li>
+<li>Conduct workshops in support of technical standards development</li>
+</ul>
+<p><strong>Estimated Duration: 14 days</strong></p>
+<ul>
+<li>Framework Specification v2.0: 5 days</li>
+<li>OAuth/OIDC integration spec: 3 days</li>
+<li>Schema governance process: 2 days</li>
+<li>Versioning/deprecation policies: 1 day</li>
+<li>Security requirements: 1 day</li>
+<li>Workshops for technical standards development: 2 days</li>
+</ul>
+<h2>Phase 2: Registry Implementation</h2>
+<h3>2.1 Schema Development (6.5 days)</h3>
+<ul>
+<li>Create credential schemas for:<ul>
+<li>Transaction information: 1 day</li>
+<li>Property Title/Ownership information: 1 day</li>
+<li>Participant/Person Credentials: 1 day</li>
+<li>Property Data: 1 day</li>
+</ul>
+</li>
+<li>Implement schema validation rules: 0.5 days</li>
+<li>Create schema documentation generator: 1 day</li>
+<li>Build schema versioning system: 1 day</li>
+</ul>
+<h3>2.2 Trust Registry (7 days)</h3>
+<ul>
+<li>Implement issuer registration system: 1.5 days</li>
+<li>Build issuer verification workflows: 1 day</li>
+<li>Create issuer metadata management: 1 day</li>
+<li>Develop trust list publication system: 1 day</li>
+<li>Implement issuer revocation mechanisms: 1 day</li>
+<li>Build API for trust status queries: 1.5 days</li>
+</ul>
+<h3>2.3 Credential Status Infrastructure (4 days)</h3>
+<ul>
+<li>Implement Bitstring Status List 2021: 1.5 days</li>
+<li>Build status list generation tools: 1 day</li>
+<li>Create status update mechanisms: 1 day</li>
+<li>Create monitoring and alerting: 0.5 days</li>
+</ul>
+<p><strong>Phase 2 Total: 17.5 days</strong></p>
+<h2>3.1 Core NPM Package</h2>
+<h3>Tasks</h3>
+<ul>
+<li>Implement <code>validateCredential()</code> with full schema validation</li>
+<li>Add credential creation utilities</li>
+<li>Build credential verification functions</li>
+<li>Implement DID resolution utilities</li>
+<li>Add status checking functions</li>
+<li>Create comprehensive error handling</li>
+</ul>
+<p><strong>Estimated Duration: 5.5 days</strong></p>
+<ul>
+<li><code>validateCredential()</code> implementation: 1.5 days</li>
+<li>Credential creation utilities: 1 day</li>
+<li>Verification functions: 1 day</li>
+<li>DID resolution utilities: 1 day</li>
+<li>Status checking functions: 0.5 days</li>
+<li>Error handling: 0.5 days</li>
+</ul>
+<h2>Phase 4: Implementation Guides &amp; Documentation</h2>
+<h3>4.1 Implementation Guides (7.5 days)</h3>
+<ul>
+<li>Issuer Implementation Guide: 2.5 days<ul>
+<li>Credential issuance workflows: 1 day</li>
+<li>Key management best practices: 0.5 days</li>
+<li>Status list management: 0.5 days</li>
+<li>Compliance requirements: 0.5 days</li>
+</ul>
+</li>
+<li>Verifier Implementation Guide: 2.5 days<ul>
+<li>Verification workflows: 1 day</li>
+<li>Trust chain validation: 0.5 days</li>
+<li>User experience guidelines: 0.5 days</li>
+<li>Error handling patterns: 0.5 days</li>
+</ul>
+</li>
+<li>Holder/Wallet Implementation Guide: 2.5 days<ul>
+<li>Wallet integration patterns: 1 day</li>
+<li>Credential storage best practices: 0.5 days</li>
+<li>Presentation protocols: 0.5 days</li>
+<li>Privacy considerations: 0.5 days</li>
+</ul>
+</li>
+</ul>
+<h3>4.2 API Documentation (2.5 days)</h3>
+<ul>
+<li>REST API documentation: 1 day</li>
+<li>Authentication/authorization flows: 0.5 days</li>
+<li>Rate limiting and quotas: 0.5 days</li>
+<li>Error response catalog: 0.5 days</li>
+</ul>
+<h3>4.3 Tutorial Series (4 days)</h3>
+<ul>
+<li>&quot;Getting Started with PDTF&quot; tutorial: 1 day</li>
+<li>&quot;Issuing Your First Credential&quot;: 1 day</li>
+<li>&quot;Building a Verifier Application&quot;: 1 day</li>
+<li>&quot;Production Deployment Checklist&quot;: 1 day</li>
+</ul>
+<p><strong>Phase 4 Total: 14 days</strong></p>
+<h2>Phase 5: Reference Implementations</h2>
+<h3>5.1 Sample Applications (15 days)</h3>
+<ul>
+<li>Reference Issuer Application: 6 days<ul>
+<li>Web-based issuance portal: 3 days</li>
+<li>Admin dashboard: 2 days</li>
+<li>Batch issuance tools: 1 day</li>
+</ul>
+</li>
+<li>Reference Verifier Application: 5 days<ul>
+<li>Verification portal: 2 days</li>
+<li>API verification endpoint: 1.5 days</li>
+<li>Mobile verification app: 1.5 days</li>
+</ul>
+</li>
+<li>Reference Holder Wallet: 4 days<ul>
+<li>Web wallet implementation: 2 days</li>
+<li>Mobile wallet (React Native): 1.5 days</li>
+<li>Browser extension: 0.5 days</li>
+</ul>
+</li>
+</ul>
+<h3>5.2 Integration Examples (6 days)</h3>
+<ul>
+<li>Property portal integration: 1.5 days</li>
+<li>Banking system integration: 1.5 days</li>
+<li>Government service integration: 1 day</li>
+<li>Insurance platform integration: 1 day</li>
+<li>Real estate CRM integration: 1 day</li>
+</ul>
+<p><strong>Phase 5 Total: 21 days</strong></p>
+<h2>Proof of Concept 4 Support</h2>
+<h3>Tasks</h3>
+<ul>
+<li>Stand up reference implementation for PoC participants</li>
+<li>Integrate with PoC participant systems</li>
+<li>Provide technical support during PoC execution</li>
+<li>Collect feedback and iterate on implementations</li>
+<li>Document lessons learned and integration patterns</li>
+</ul>
+<p><strong>Estimated Duration: 8 days</strong></p>
+<ul>
+<li>Reference implementation setup: 3 days</li>
+<li>PoC participant integration: 3 days</li>
+<li>Technical support and iteration: 2 days</li>
+</ul>
+<h2>6.1 Test Infrastructure</h2>
+<h3>Tasks</h3>
+<ul>
+<li>Unit test suite for all SDKs</li>
+<li>Integration test framework</li>
+<li>End-to-end test scenarios</li>
+<li>Performance test suite</li>
+<li>Security test framework</li>
+<li>Compliance test suite</li>
+</ul>
+<p><strong>Estimated Duration: 6 days</strong></p>
+<ul>
+<li>Unit test suite for NPM package: 2 days</li>
+<li>Integration test framework: 1.5 days</li>
+<li>End-to-end test scenarios: 1 day</li>
+<li>Performance test suite: 0.5 days</li>
+<li>Security test framework: 0.5 days</li>
+<li>Compliance test suite: 0.5 days</li>
+</ul>
+<h2>Implementation Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Component</th>
+<th>Days</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.2</td>
+<td>Technical Standards</td>
+<td>14</td>
+</tr>
+<tr>
+<td>2.1</td>
+<td>Schema Development</td>
+<td>6.5</td>
+</tr>
+<tr>
+<td>2.2</td>
+<td>Trust Registry</td>
+<td>7</td>
+</tr>
+<tr>
+<td>2.3</td>
+<td>Credential Status Infrastructure</td>
+<td>4</td>
+</tr>
+<tr>
+<td>3.1</td>
+<td>Core NPM Package</td>
+<td>5.5</td>
+</tr>
+<tr>
+<td>4.1</td>
+<td>Implementation Guides</td>
+<td>7.5</td>
+</tr>
+<tr>
+<td>4.2</td>
+<td>API Documentation</td>
+<td>2.5</td>
+</tr>
+<tr>
+<td>4.3</td>
+<td>Tutorial Series</td>
+<td>4</td>
+</tr>
+<tr>
+<td>5.1</td>
+<td>Sample Applications</td>
+<td>15</td>
+</tr>
+<tr>
+<td>5.2</td>
+<td>Integration Examples</td>
+<td>6</td>
+</tr>
+<tr>
+<td>PoC4</td>
+<td>Proof of Concept 4 Support</td>
+<td>8</td>
+</tr>
+<tr>
+<td>6.1</td>
+<td>Test Infrastructure</td>
+<td>6</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td></td>
+<td><strong>86 days</strong></td>
+</tr>
+</tbody></table>
+<h2>Dependencies and Critical Path</h2>
+<ol>
+<li><strong>Technical Standards (1.2)</strong> must be completed first as they define the foundation</li>
+<li><strong>Schema Development (2.1)</strong> depends on Technical Standards</li>
+<li><strong>Trust Registry (2.2)</strong> can be developed in parallel with Schema Development</li>
+<li><strong>Core NPM Package (3.1)</strong> depends on completed schemas and registry APIs</li>
+<li><strong>Documentation (Phase 4)</strong> should follow implementation completion</li>
+<li><strong>Reference Implementations (Phase 5)</strong> depend on completed NPM package and documentation</li>
+<li><strong>Proof of Concept 4 Support</strong> can run in parallel with Phase 5 development, using early implementations</li>
+<li><strong>Test Infrastructure (6.1)</strong> should be developed alongside core implementations for continuous validation</li>
+</ol>
+<h2>Risk Considerations</h2>
+<ul>
+<li>Schema design changes may impact downstream development</li>
+<li>OAuth/OIDC integration complexity could extend timeline</li>
+<li>Status list implementation may require additional W3C standards research</li>
+<li>Documentation accuracy depends on stable API implementations</li>
+</ul>
+<h2>Implementation Schedule (September 2025 - January 2026)</h2>
+<h3>September 2025 (18 days)</h3>
+<ul>
+<li><strong>Technical Standards (1.2)</strong>: Complete PDTF Framework Specification v2.0, OAuth/OIDC integration, workshops (14 days)</li>
+<li><strong>Schema Development (2.1)</strong>: Begin credential schemas development (4 days started)</li>
+</ul>
+<h3>October 2025 (25 days)</h3>
+<ul>
+<li><strong>Schema Development (2.1)</strong>: Complete remaining schema work (2.5 days)</li>
+<li><strong>Trust Registry (2.2)</strong>: Full implementation (7 days)</li>
+<li><strong>Credential Status Infrastructure (2.3)</strong>: Complete implementation (4 days)</li>
+<li><strong>Core NPM Package (3.1)</strong>: Begin development (5.5 days)</li>
+<li><strong>Test Infrastructure (6.1)</strong>: Begin unit tests and frameworks (3 days started)</li>
+<li><strong>Proof of Concept 4 Support</strong>: Begin PoC setup and integration (3 days started)</li>
+</ul>
+<h3>November 2025 (24 days)</h3>
+<ul>
+<li><strong>Test Infrastructure (6.1)</strong>: Complete remaining test infrastructure (3 days)</li>
+<li><strong>Implementation Guides (4.1)</strong>: Complete all guides (7.5 days)</li>
+<li><strong>API Documentation (4.2)</strong>: Complete documentation (2.5 days)</li>
+<li><strong>Tutorial Series (4.3)</strong>: Complete tutorials (4 days)</li>
+<li><strong>Sample Applications (5.1)</strong>: Begin reference applications (4 days started)</li>
+<li><strong>Proof of Concept 4 Support</strong>: Continue PoC integration and support (3 days)</li>
+</ul>
+<h3>December 2025 (19 days)</h3>
+<ul>
+<li><strong>Sample Applications (5.1)</strong>: Complete reference applications (11 days)</li>
+<li><strong>Integration Examples (5.2)</strong>: Complete all integration examples (6 days)</li>
+<li><strong>Proof of Concept 4 Support</strong>: Complete PoC support activities (2 days)</li>
+</ul>
+<h3>January 2026 (0 days)</h3>
+<ul>
+<li><strong>Project completion and handover</strong></li>
+</ul>
+<p><strong>Total Scheduled Days: 86 days</strong></p>
+<h3>Key Milestones</h3>
+<ul>
+<li><strong>End September</strong>: Technical standards finalized</li>
+<li><strong>End October</strong>: Core registry infrastructure complete, PoC4 setup begun</li>
+<li><strong>End November</strong>: Documentation and guides complete, PoC4 integration ongoing</li>
+<li><strong>End December</strong>: Reference implementations ready, PoC4 support completed</li>
+<li><strong>January 2026</strong>: Project completion and handover</li>
+</ul>
+<h2>Recommendations</h2>
+<ol>
+<li>Begin with Technical Standards to establish foundation</li>
+<li>Develop schemas iteratively with stakeholder feedback</li>
+<li>Implement core NPM package incrementally alongside registry development</li>
+<li>Create documentation templates early to guide implementation</li>
+<li>Plan for 15-20% buffer time for integration testing and refinements</li>
+</ol>
+    </main>
+</body>
+</html>
