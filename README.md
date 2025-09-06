@@ -7,7 +7,7 @@ This repository serves as the central source for the **Property Data Trust Frame
 - **Verifiable Data Registry**: Registry for property transaction credentials based on [W3C Verifiable Credentials](https://www.w3.org/TR/vc-data-model/)
 - **Utilities & Example Code**: Reference implementations and tools for framework participants
 
-## 📋 Key Components
+## Key Components
 
 ### 1. Specifications & Documentation
 
@@ -29,7 +29,7 @@ This repository serves as the central source for the **Property Data Trust Frame
 
 ---
 
-## 🔍 Why This Registry?
+## Why This Registry?
 
 Property transactions involve multiple parties and require verifiable data such as:
 
@@ -49,7 +49,7 @@ This registry serves as a **trusted source of truth** for:
 
 ---
 
-## ✅ Features
+## Features
 
 - **did:web Identifier**
   ```
@@ -63,7 +63,7 @@ This registry serves as a **trusted source of truth** for:
 
 ---
 
-## 📂 Directory Structure
+## Directory Structure
 
 ```
 .
@@ -93,7 +93,7 @@ This registry serves as a **trusted source of truth** for:
 
 ---
 
-## 📦 NPM Package
+## NPM Package
 
 ### Installation
 
@@ -124,7 +124,7 @@ if (result.valid) {
 
 ---
 
-## 🧠 Getting Started
+## Getting Started
 
 ### For Framework Participants
 
@@ -146,7 +146,7 @@ if (result.valid) {
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Development Plan](https://property-data-trust-framework.github.io/trust-framework/web/plan.html) - Comprehensive roadmap for building the trust framework
 - [W3C Verifiable Credentials](https://www.w3.org/TR/vc-data-model/)

@@ -2,18 +2,18 @@
 
 Welcome to the Property Data Trust Framework (PDTF) documentation. This framework enables trusted, interoperable property data exchange using verifiable credentials and decentralized identity standards.
 
-## 📋 Framework Overview
+## Framework Overview
 
 - **[Framework Specification](Draft_%20Property%20Data%20Trust%20Framework%202%20Specification.md)** - Core technical specification for the Property Data Trust Framework
 - **[PDTF Participant DID Auth OAuth 2 Specification](Draft_%20PDTF%20Participant%20DID%20Auth%20OAuth%202%20Specification.md)** - Authentication and authorization specification for participants
 - **[Technical Implementation Proposal](proposal.md)** - Comprehensive technical implementation plan and roadmap
 
-## 🏛️ Governance
+## Governance
 
 - **[Governance](governance.md)** - Comprehensive governance structure, principles, roles, and change management processes
 - **[Proposal Guidelines](proposal.md)** - How to propose changes and enhancements to the framework
 
-## 📝 Templates and Forms
+## Templates and Forms
 
 ### Change Management
 - **[Change Notification Template](change-notification-template.md)** - Standard template for notifying stakeholders of changes
@@ -23,11 +23,11 @@ Welcome to the Property Data Trust Framework (PDTF) documentation. This framewor
 ### Compliance and Policy
 - **[Compliance and Policy Checklist](compliance-and-policy-checklist.md)** - Checklist to ensure compliance with governance requirements
 
-## 📊 Registers and Tracking
+## Registers and Tracking
 
 - **[Release Version Register](release-version-register.md)** - Track of all framework releases and their versions
 
-## 🔄 Change Management Process
+## Change Management Process
 
 The PDTF follows a structured change management process:
 
@@ -40,13 +40,13 @@ The PDTF follows a structured change management process:
 
 For detailed process information, see the [Change Management section in Governance](governance.md#6-change-management-process).
 
-## 🤝 Getting Involved
+## Getting Involved
 
 - Review the [Governance document](governance.md) to understand roles and responsibilities
 - Check the [Proposal Guidelines](proposal.md) for contributing changes
-- Use the [templates and forms](#📝-templates-and-forms) for structured submissions
+- Use the [templates and forms](#templates-and-forms) for structured submissions
 
-## 📞 Support
+## Support
 
 For questions about the framework, governance, or contribution process, please refer to the appropriate governance role outlined in the [Governance document](governance.md#3-operational-governance-roles-and-responsibilities).
 
