@@ -1,0 +1,51 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://trust.propdata.org.uk/contexts/pdtf-v2.jsonld"
+  ],
+  "id": "https://trust.propdata.org.uk/credentials/participant/tx-12345-buyer",
+  "type": ["VerifiableCredential", "ParticipantVC"],
+  "issuer": "did:web:conveyancer.example",
+  "validFrom": "2025-01-15T11:00:00Z",
+  "credentialSubject": {
+    "id": "did:pairwise:buyer#tx-12345",
+    "txDid": "did:web:pdtf.example:tx:12345",
+    "role": "buyer",
+    "permissions": [
+      "read:vc:domain/title",
+      "read:vc:domain/surveys",
+      "read:vc:domain/searches",
+      "write:vc:domain/mortgage-application"
+    ]
+  },
+  "credentialStatus": {
+    "id": "https://conveyancer.example/status/participants/sl2021.json#1024",
+    "type": "StatusList2021Entry", 
+    "statusPurpose": "revocation",
+    "statusListIndex": "1024",
+    "statusListCredential": "https://conveyancer.example/status/participants/sl2021.json"
+  },
+  "credentialSchema": {
+    "id": "https://trust.propdata.org.uk/schemas/PDTF-VerifiableCredential",
+    "type": "JsonSchema"
+  },
+  "termsOfUse": [{
+    "type": "TrustFrameworkPolicy",
+    "trustFramework": "PropertyDataTrustFramework",
+    "confidentialityLevel": "Restricted",
+    "requiredCredentials": ["ParticipantVC"],
+    "pii": true
+  }],
+  "evidence": [{
+    "type": "Vouch",
+    "voucher": "did:web:conveyancer.example",
+    "voucherRole": "conveyancer"
+  }],
+  "proof": {
+    "type": "DataIntegrityProof",
+    "proofPurpose": "assertionMethod",
+    "verificationMethod": "did:web:conveyancer.example#key-1",
+    "created": "2025-01-15T11:05:00Z",
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..example_signature"
+  }
+}

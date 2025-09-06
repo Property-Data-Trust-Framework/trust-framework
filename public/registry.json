@@ -1,0 +1,71 @@
+{
+  "name": "Property Data Trust Framework Registry", 
+  "description": "Verifiable data registry for the Property Data Trust Framework (PDTF). Provides JSON-LD contexts, VC structure schemas, and references to externally managed entity schemas.",
+  "version": "2.0",
+  "baseUrl": "https://trust.propdata.org.uk",
+  "did": "did:web:trust.propdata.org.uk",
+  "contexts": {
+    "pdtf-v2": {
+      "url": "https://trust.propdata.org.uk/contexts/pdtf-v2.jsonld",
+      "description": "PDTF v2 JSON-LD context definitions"
+    }
+  },
+  "schemas": {
+    "verifiableCredential": {
+      "url": "https://trust.propdata.org.uk/schemas/PDTF-VerifiableCredential",
+      "description": "Unified PDTF Verifiable Credential schema",
+      "version": "2.0"
+    },
+    "entities": {
+      "note": "Entity schemas are managed in separate repositories and may be migrated to schema VCs in future.",
+      "Person": {
+        "url": "https://schemas.propdata.org.uk/entities/Person",
+        "description": "Person entity schema (managed externally)"
+      },
+      "Property": {
+        "url": "https://schemas.propdata.org.uk/entities/Property", 
+        "description": "Property entity schema (managed externally)"
+      },
+      "Title": {
+        "url": "https://schemas.propdata.org.uk/entities/Title",
+        "description": "Title entity schema (managed externally)"
+      },
+      "Transaction": {
+        "url": "https://schemas.propdata.org.uk/entities/Transaction",
+        "description": "Transaction entity schema (managed externally)"
+      }
+    }
+  },
+  "examples": {
+    "personCredential": {
+      "url": "https://trust.propdata.org.uk/examples/person-credential.json",
+      "description": "Example Person Verifiable Credential"
+    },
+    "propertyCredential": {
+      "url": "https://trust.propdata.org.uk/examples/property-credential.json",
+      "description": "Example Property Verifiable Credential"
+    },
+    "participantVC": {
+      "url": "https://trust.propdata.org.uk/examples/participant-vc.json",
+      "description": "Example Participant Verifiable Credential"
+    }
+  },
+  "trustedIssuers": {
+    "description": "List of trusted issuer DIDs managed by the PDTF framework",
+    "issuers": []
+  },
+  "statusLists": {
+    "description": "Status list endpoints for credential revocation",
+    "lists": []
+  },
+  "governance": {
+    "url": "https://trust.propdata.org.uk/web/governance.html",
+    "description": "PDTF governance policies and procedures"
+  },
+  "documentation": {
+    "specification": "https://trust.propdata.org.uk/web/Draft_ Property Data Trust Framework 2 Specification.html",
+    "accessSpec": "https://trust.propdata.org.uk/web/access-specification.html",
+    "oauth": "https://trust.propdata.org.uk/web/Draft_ PDTF Participant DID Auth OAuth 2 Specification.html",
+    "developmentPlan": "https://trust.propdata.org.uk/web/plan.html"
+  }
+}

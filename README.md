@@ -40,10 +40,12 @@ Property transactions involve multiple parties and require verifiable data such 
 
 This registry serves as a **trusted source of truth** for:
 
-- Credential Schemas
-- Credential Status (valid/revoked)
+- JSON-LD context definitions and VC structure schemas
+- Credential Status (valid/revoked) 
 - Trusted Issuer metadata
 - Terms of issuance
+
+**Note**: Entity schemas (Person, Property, Title, etc.) are managed in separate repositories and referenced via registry URLs. In future, these may be managed here as schema VCs themselves.
 
 ---
 
@@ -71,11 +73,15 @@ This registry serves as a **trusted source of truth** for:
 ├── public/                    # Static site content & registry
 │   ├── .well-known/
 │   │   └── did.json          # DID document
-│   ├── schemas/              # Credential schemas
-│   │   └── epc-certificate.jsonld
+│   ├── contexts/             # JSON-LD context definitions
+│   │   └── pdtf-v2.jsonld    # PDTF v2 context
+│   ├── schemas/              # VC structure schemas
+│   │   └── PDTF-VerifiableCredential.json
+│   ├── examples/             # Example credentials
+│   │   └── *.json            # Sample VCs for each type
 │   ├── status/               # Bitstring revocation lists
 │   │   └── test-2024-revocation-list.json
-│   ├── trusted-issuers-registry.json    # Trusted issuer registry
+│   ├── registry.json         # Registry index with external schema references
 │   └── web/                  # Auto-generated HTML documentation
 │       ├── index.html        # Documentation home page
 │       ├── governance.html   # HTML version of docs
@@ -100,8 +106,8 @@ npm install @pdtf/trust-framework
 ```javascript
 const { validateCredential } = require("@pdtf/trust-framework");
 
-// Validate a credential against a schema
-const result = await validateCredential(credential, "epc-certificate");
+// Validate a credential against the PDTF VC schema
+const result = await validateCredential(credential);
 
 if (result.valid) {
   console.log("Credential is valid");
@@ -112,7 +118,7 @@ if (result.valid) {
 
 ### Exports
 
-- **validateCredential** - Validates credentials against PDTF schemas
+- **validateCredential** - Validates credentials against the unified PDTF VC schema
 - **PDTF_REGISTRY_URL** - The trust framework registry URL
 - **PDTF_DID** - The trust framework DID identifier
 

@@ -1,0 +1,35 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@protected": true,
+    "pdtf": "https://trust.propdata.org.uk/contexts/pdtf-v2#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dc": "http://purl.org/dc/terms/",
+    
+    "Person": "pdtf:Person",
+    "Organisation": "pdtf:Organisation", 
+    "Property": "pdtf:Property",
+    "Title": "pdtf:Title",
+    "Transaction": "pdtf:Transaction",
+    "Participant": "pdtf:Participant",
+    
+    "PersonCredential": "pdtf:PersonCredential",
+    "OrganisationCredential": "pdtf:OrganisationCredential",
+    "PropertyCredential": "pdtf:PropertyCredential", 
+    "TitleCredential": "pdtf:TitleCredential",
+    "TransactionCredential": "pdtf:TransactionCredential",
+    "ParticipantVC": "pdtf:ParticipantVC",
+    
+    "uprn": {"@id": "pdtf:uprn", "@type": "xsd:string"},
+    "titleNumber": {"@id": "pdtf:titleNumber", "@type": "xsd:string"},
+    "txDid": {"@id": "pdtf:txDid", "@type": "@id"},
+    
+    "role": "pdtf:role",
+    
+    "TrustFrameworkPolicy": "pdtf:TrustFrameworkPolicy",
+    "PropertyDataTrustFramework": "pdtf:PropertyDataTrustFramework",
+    "confidentialityLevel": "pdtf:confidentialityLevel",
+    "requiredCredentials": {"@id": "pdtf:requiredCredentials", "@container": "@list"},
+    "pii": "pdtf:pii"
+  }
+}
