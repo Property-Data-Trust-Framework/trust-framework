@@ -14,11 +14,34 @@ fi
 # Create web directory if it doesn't exist
 mkdir -p public/web
 
+# Load navigation component
+load_navigation() {
+    if [ -f "examples/templates/navigation.html" ]; then
+        cat "examples/templates/navigation.html"
+    else
+        # Fallback navigation if file doesn't exist
+        cat << 'NAV_EOF'
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="governance.html">Governance</a></li>
+            <li><a href="plan.html">Development Plan</a></li>
+            <li><a href="Draft_%20Property%20Data%20Trust%20Framework%202%20Specification.html">Framework Spec</a></li>
+            <li><a href="Draft_%20PDTF%20Participant%20DID%20Auth%20OAuth%202%20Specification.html">OAuth Spec</a></li>
+            <li><a href="access-specification.html">Access Spec</a></li>
+            <li><a href="../">Registry</a></li>
+        </ul>
+    </nav>
+NAV_EOF
+    fi
+}
+
 # HTML template function
 create_html_wrapper() {
     local title="$1"
     local content="$2"
     local output_file="$3"
+    local navigation="$(load_navigation)"
     
     cat > "$output_file" << EOF
 <!DOCTYPE html>
@@ -69,17 +92,7 @@ create_html_wrapper() {
     </style>
 </head>
 <body>
-    <nav class="nav">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="governance.html">Governance</a></li>
-            <li><a href="plan.html">Development Plan</a></li>
-            <li><a href="Draft_%20Property%20Data%20Trust%20Framework%202%20Specification.html">Framework Spec</a></li>
-            <li><a href="Draft_%20PDTF%20Participant%20DID%20Auth%20OAuth%202%20Specification.html">OAuth Spec</a></li>
-            <li><a href="access-specification.html">Access Spec</a></li>
-            <li><a href="../">Registry</a></li>
-        </ul>
-    </nav>
+${navigation}
     <main>
 ${content}
     </main>

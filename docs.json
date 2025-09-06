@@ -1,0 +1,79 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "Property Data Trust Framework",
+  "description": "Technical standards and protocols for verifiable property data exchange using W3C Verifiable Credentials",
+  "theme": "mint",
+  "colors": {
+    "primary": "#0366d6",
+    "light": "#4285f4",
+    "dark": "#0052cc"
+  },
+  "favicon": "/favicon.svg",
+  "navbar": {
+    "links": [
+      {
+        "label": "Registry", 
+        "href": "https://trust.propdata.org.uk/"
+      }
+    ]
+  },
+  "navigation": [
+    {
+      "group": "Getting Started", 
+      "pages": [
+        "introduction",
+        "docs/governance"
+      ]
+    },
+    {
+      "group": "Specifications",
+      "pages": [
+        "docs/Draft_ Property Data Trust Framework 2 Specification",
+        "docs/Draft_ PDTF Participant DID Auth OAuth 2 Specification", 
+        "docs/access-specification"
+      ]
+    },
+    {
+      "group": "Development",
+      "pages": [
+        "docs/plan",
+        "docs/proposal"
+      ]
+    },
+    {
+      "group": "Templates & Forms",
+      "pages": [
+        "docs/proposal-impact-assessment-form",
+        "docs/breaking-change-notification-template",
+        "docs/change-notification-template",
+        "docs/compliance-and-policy-checklist"
+      ]
+    },
+    {
+      "group": "Release Management", 
+      "pages": [
+        "docs/release-version-register"
+      ]
+    }
+  ],
+  "footer": {
+    "socials": {
+      "github": "https://github.com/property-data-trust-framework/trust-framework"
+    },
+    "links": [
+      {
+        "header": "Resources",
+        "items": [
+          {
+            "label": "W3C Verifiable Credentials",
+            "href": "https://www.w3.org/TR/vc-data-model/"
+          },
+          {
+            "label": "DID Web Specification", 
+            "href": "https://w3c-ccg.github.io/did-method-web/"
+          }
+        ]
+      }
+    ]
+  }
+}
