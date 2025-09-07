@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "name": "Property Data Trust Framework",
+  "name": "PDTF",
   "description": "Technical standards and protocols for verifiable property data exchange using W3C Verifiable Credentials",
   "theme": "mint",
   "colors": {
@@ -8,7 +8,11 @@
     "light": "#4285f4",
     "dark": "#0052cc"
   },
-  "favicon": "/favicon.svg",
+  "logo": {
+    "light": "https://openpropdata.org.uk/wp-content/uploads/2024/12/open-properties-logos4-e1733913853278.png",
+    "dark": "https://openpropdata.org.uk/wp-content/uploads/2024/12/open-properties-logos4-e1733913853278.png"
+  },
+  "favicon": "https://openpropdata.org.uk/wp-content/uploads/2023/06/cropped-icon.png",
   "navbar": {
     "links": [
       {
@@ -69,6 +73,19 @@
       "github": "https://github.com/property-data-trust-framework/trust-framework"
     },
     "links": [
+      {
+        "header": "OPDA",
+        "items": [
+          {
+            "label": "Open Property Data Association",
+            "href": "https://openpropdata.org.uk/"
+          },
+          {
+            "label": "About OPDA",
+            "href": "https://openpropdata.org.uk/about-us/"
+          }
+        ]
+      },
       {
         "header": "Resources",
         "items": [

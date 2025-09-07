@@ -1,4 +1,4 @@
-# Property Data Trust Framework Documentation
+# PDTF Documentation
 
 Welcome to the Property Data Trust Framework (PDTF) documentation. This framework enables trusted, interoperable property data exchange using verifiable credentials and decentralized identity standards.
 
