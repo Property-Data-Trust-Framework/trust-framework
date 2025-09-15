@@ -36,19 +36,20 @@ npm run typecheck
 
 3. **Documentation** (`/docs/`)
    - Governance policies, framework specifications, OAuth specs
-   - Configured for Mintlify publishing via `docs.json`
+   - Automatically converted to HTML in `public/web/` on push
 
 ### Deployment Pipeline
 
-**Documentation:** Mintlify hosting (configured via `docs.json`)
-**Registry:** GitHub Actions workflow deploys `/public/` directory to GitHub Pages
+**GitHub Actions Workflows:**
+- `build-docs.yml` - Converts markdown to HTML on push/PR
+- `deploy.yml` - Deploys entire `/public/` directory to GitHub Pages
 
 **Custom Domain:** `trust.propdata.org.uk` (configured in `/public/CNAME`)
 
 ### Key URLs When Deployed
 - Registry: `https://trust.propdata.org.uk/`
 - DID Document: `https://trust.propdata.org.uk/.well-known/did.json`
-- Documentation: Mintlify hosted (see `docs.json` configuration)
+- Documentation: `https://trust.propdata.org.uk/web/`
 - Schemas: `https://trust.propdata.org.uk/schemas/[schema-id]`
 
 ## Important Context
