@@ -11,6 +11,12 @@ if ! command -v marked &> /dev/null; then
     npm install -g marked
 fi
 
+# Function to process markdown
+process_markdown() {
+    local md_file="$1"
+    marked "$md_file"
+}
+
 # Create web directory if it doesn't exist
 mkdir -p public/web
 
@@ -104,7 +110,7 @@ EOF
 # Build index.html from README.md
 if [ -f "README.md" ]; then
     echo "Building index.html from README.md..."
-    content=$(marked README.md)
+    content=$(process_markdown README.md)
     create_html_wrapper "Property Data Trust Framework Documentation" "$content" "public/web/index.html"
 fi
 
@@ -114,13 +120,13 @@ if [ -d "docs" ]; then
         if [ -f "$md_file" ]; then
             filename=$(basename "$md_file" .md)
             html_file="public/web/${filename}.html"
-            
+
             echo "Building ${html_file} from ${md_file}..."
-            content=$(marked "$md_file")
-            
+            content=$(process_markdown "$md_file")
+
             # Capitalize first letter of filename for title
             title=$(echo "$filename" | sed 's/.*/\u&/')
-            
+
             create_html_wrapper "$title" "$content" "$html_file"
         fi
     done
