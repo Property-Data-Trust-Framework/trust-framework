@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Generate a GA-signed Bitstring Status List VC for accreditation credential revocation.
+ * Generate a GA-signed Status List 2021 VC for accreditation credential revocation.
  *
  * This creates a VC-shaped JSON object with `credentialSubject.encodedList` as
  * a base64url-encoded, gzip-compressed bitstring.
@@ -9,18 +9,16 @@
  *
  * Usage:
  *   node examples/trust-registry/generate-ga-accreditation-status-list.mjs \
- *     --ga-did did:web:trust.propdata.org.uk \
- *     --ga-vm did:web:trust.propdata.org.uk#key-1 \
- *     --ga-private ./ga-private.pem \
+ *     --ga-keypair ./ga-keypair.json \
  *     --id https://trust.propdata.org.uk/status/ga-accreditation-revocation.json \
  *     --length 2048 \
  *     --revoked 12,98,123 \
  *     --out ./ga-accreditation-revocation.json
  */
 import fs from 'node:fs';
-import crypto from 'node:crypto';
 import zlib from 'node:zlib';
-import { base64urlEncode, signJwsEdDsa, stableJsonStringify } from './_jws.mjs';
+import {base64urlEncode} from './_jws.mjs';
+import {buildDocumentLoader, issueEd25519Signature2020, loadEd25519KeyPair2020FromFile} from './_ldp.mjs';
 
 function getArg(name, { required = false, defaultValue } = {}) {
   const idx = process.argv.indexOf(name);
@@ -33,9 +31,7 @@ function getArg(name, { required = false, defaultValue } = {}) {
   return val ?? defaultValue;
 }
 
-const gaDid = getArg('--ga-did', { required: true });
-const gaVm = getArg('--ga-vm', { required: true });
-const gaPrivatePath = getArg('--ga-private', { required: true });
+const gaKeypairPath = getArg('--ga-keypair', { required: true });
 
 const id = getArg('--id', { required: true });
 const outPath = getArg('--out', { defaultValue: '-' });
@@ -54,47 +50,34 @@ const now = new Date();
 
 const encodedList = makeEncodedBitstring({ length, setBits: revoked });
 
-const vc = {
-  '@context': ['https://www.w3.org/2018/credentials/v1'],
+const credential = {
+  '@context': [
+    'https://www.w3.org/2018/credentials/v1',
+    'https://w3id.org/vc/status-list/2021/v1'
+  ],
   id,
-  type: ['VerifiableCredential', 'BitstringStatusListCredential'],
-  issuer: gaDid,
-  validFrom: now.toISOString(),
+  type: ['VerifiableCredential', 'StatusList2021Credential'],
+  issuer: getArg('--ga-did', { defaultValue: undefined }) ?? undefined,
+  issuanceDate: now.toISOString(),
   credentialSubject: {
     id: `${id}#list`,
-    type: 'BitstringStatusList',
+    type: 'StatusList2021',
     statusPurpose,
     encodedList
   }
 };
 
-const gaPrivatePem = fs.readFileSync(gaPrivatePath, 'utf8');
-const gaPrivateKey = crypto.createPrivateKey(gaPrivatePem);
+const keyPair = await loadEd25519KeyPair2020FromFile(gaKeypairPath);
+if (!credential.issuer) credential.issuer = keyPair.controller;
 
-const jws = signJwsEdDsa({
-  header: { alg: 'EdDSA', typ: 'JWS', kid: gaVm },
-  payload: vc,
-  privateKey: gaPrivateKey
-});
-
-const signedVc = {
-  ...vc,
-  proof: {
-    type: 'JwsProof2025',
-    created: now.toISOString(),
-    proofPurpose: 'assertionMethod',
-    verificationMethod: gaVm,
-    jws
-  }
-};
+const documentLoader = buildDocumentLoader();
+const signedVc = await issueEd25519Signature2020({credential, keyPair, documentLoader});
 
 const output = `${JSON.stringify(signedVc, null, 2)}\n`;
 if (outPath === '-' || outPath === '/dev/stdout') process.stdout.write(output);
 else fs.writeFileSync(outPath, output, 'utf8');
 
-process.stderr.write(
-  `STATUS_LIST_SHA256=${crypto.createHash('sha256').update(stableJsonStringify(signedVc)).digest('hex')}\n`
-);
+process.stderr.write(`STATUS_LIST_ID=${signedVc.id}\n`);
 
 function makeEncodedBitstring({ length: bitLength, setBits }) {
   const byteLen = Math.ceil(bitLength / 8);

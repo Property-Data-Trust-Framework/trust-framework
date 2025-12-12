@@ -1,12 +1,10 @@
 #!/usr/bin/env node
 /**
- * Generate and GA-sign a Trust Registry Index pointing to current IAC VCs.
+ * Generate and GA-sign a Trust Registry Index VC pointing to current IAC VCs.
  *
  * Usage:
  *   node examples/trust-registry/generate-registry-index.mjs \
- *     --ga-did did:web:trust.propdata.org.uk \
- *     --ga-vm did:web:trust.propdata.org.uk#key-1 \
- *     --ga-private ./ga-private.pem \
+ *     --ga-keypair ./ga-keypair.json \
  *     --id https://trust.propdata.org.uk/trust-registry/v2/index.json \
  *     --iac ./iac-landregistry.json \
  *     --iac ./iac-epc.json \
@@ -14,7 +12,8 @@
  */
 import fs from 'node:fs';
 import crypto from 'node:crypto';
-import { signJwsEdDsa, stableJsonStringify, sha256Hex } from './_jws.mjs';
+import {sha256Hex, stableJsonStringify} from './_jws.mjs';
+import {buildDocumentLoader, issueEd25519Signature2020, loadEd25519KeyPair2020FromFile} from './_ldp.mjs';
 
 function getArg(name, { required = false, defaultValue } = {}) {
   const idx = process.argv.indexOf(name);
@@ -35,9 +34,7 @@ function getMultiArg(name) {
   return vals.filter(Boolean);
 }
 
-const gaDid = getArg('--ga-did', { required: true });
-const gaVm = getArg('--ga-vm', { required: true });
-const gaPrivatePath = getArg('--ga-private', { required: true });
+const gaKeypairPath = getArg('--ga-keypair', { required: true });
 
 const id = getArg('--id', { required: true });
 const outPath = getArg('--out', { defaultValue: '-' });
@@ -63,38 +60,33 @@ const issuers = iacPaths.map((p) => {
   };
 });
 
-const indexDoc = {
-  '@context': ['https://www.w3.org/2018/credentials/v1'],
+const credential = {
+  '@context': [
+    'https://www.w3.org/2018/credentials/v1',
+    'https://trust.propdata.org.uk/contexts/pdtf-v2.jsonld',
+    'https://trust.propdata.org.uk/contexts/trust-registry-v1.jsonld'
+  ],
   id,
-  type: 'PDTFTrustedIssuerRegistryIndex',
-  issuer: gaDid,
-  publishedDate: now.toISOString(),
-  issuers
-};
-
-const gaPrivatePem = fs.readFileSync(gaPrivatePath, 'utf8');
-const gaPrivateKey = crypto.createPrivateKey(gaPrivatePem);
-
-const jws = signJwsEdDsa({
-  header: { alg: 'EdDSA', typ: 'JWS', kid: gaVm },
-  payload: indexDoc,
-  privateKey: gaPrivateKey
-});
-
-const signedIndex = {
-  ...indexDoc,
-  proof: {
-    type: 'JwsProof2025',
-    created: now.toISOString(),
-    proofPurpose: 'assertionMethod',
-    verificationMethod: gaVm,
-    jws
+  type: ['VerifiableCredential', 'PDTFTrustRegistryIndexCredential'],
+  issuer: getArg('--ga-did', { defaultValue: undefined }) ?? undefined,
+  issuanceDate: now.toISOString(),
+  credentialSubject: {
+    id: `${id}#subject`,
+    type: 'PDTFTrustRegistryIndex',
+    publishedDate: now.toISOString(),
+    issuers
   }
 };
+
+const keyPair = await loadEd25519KeyPair2020FromFile(gaKeypairPath);
+if (!credential.issuer) credential.issuer = keyPair.controller;
+
+const documentLoader = buildDocumentLoader();
+const signedIndex = await issueEd25519Signature2020({credential, keyPair, documentLoader});
 
 const output = `${JSON.stringify(signedIndex, null, 2)}\n`;
 if (outPath === '-' || outPath === '/dev/stdout') process.stdout.write(output);
 else fs.writeFileSync(outPath, output, 'utf8');
 
-process.stderr.write(`INDEX_SHA256=${crypto.createHash('sha256').update(stableJsonStringify(signedIndex)).digest('hex')}\n`);
+process.stderr.write(`INDEX_ID=${signedIndex.id}\n`);
 

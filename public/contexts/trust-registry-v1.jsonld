@@ -1,0 +1,35 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@protected": true,
+
+    "tr": "https://trust.propdata.org.uk/contexts/trust-registry-v1#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "PDTFIssuerAccreditationCredential": "tr:PDTFIssuerAccreditationCredential",
+    "PDTFTrustRegistryIndexCredential": "tr:PDTFTrustRegistryIndexCredential",
+    "PDTFTrustRegistryIndex": "tr:PDTFTrustRegistryIndex",
+
+    "legalName": { "@id": "tr:legalName", "@type": "xsd:string" },
+    "environment": { "@id": "tr:environment", "@type": "xsd:string" },
+    "status": { "@id": "tr:status", "@type": "xsd:string" },
+    "assuranceLevel": { "@id": "tr:assuranceLevel", "@type": "xsd:string" },
+
+    "authorizations": { "@id": "tr:authorizations", "@type": "@json" },
+    "credentialTypes": { "@id": "tr:credentialTypes", "@container": "@list" },
+    "allowedSchemas": { "@id": "tr:allowedSchemas", "@container": "@list", "@type": "@id" },
+    "vcFormats": { "@id": "tr:vcFormats", "@container": "@list" },
+
+    "discovery": { "@id": "tr:discovery", "@type": "@json" },
+    "oid4vciIssuer": { "@id": "tr:oid4vciIssuer", "@type": "@id" },
+    "issuerStatusList": { "@id": "tr:issuerStatusList", "@type": "@id" },
+
+    "publishedDate": { "@id": "tr:publishedDate", "@type": "xsd:dateTime" },
+    "issuers": { "@id": "tr:issuers", "@container": "@list" },
+    "issuerDid": { "@id": "tr:issuerDid", "@type": "@id" },
+    "iacId": { "@id": "tr:iacId", "@type": "@id" },
+    "iacSha256": { "@id": "tr:iacSha256", "@type": "xsd:string" },
+    "sourcePath": { "@id": "tr:sourcePath", "@type": "xsd:string" }
+  }
+}
+

@@ -31,6 +31,16 @@ export function buildDocumentLoader() {
     // ignore
   }
 
+  try {
+    const trUrl = 'https://trust.propdata.org.uk/contexts/trust-registry-v1.jsonld';
+    const localPath = path.resolve(__dirname, '../../public/contexts/trust-registry-v1.jsonld');
+    if(fs.existsSync(localPath)) {
+      loader.addStatic(trUrl, JSON.parse(fs.readFileSync(localPath, 'utf8')));
+    }
+  } catch {
+    // ignore
+  }
+
   const baseLoader = loader.build();
 
   return async function documentLoader(url) {

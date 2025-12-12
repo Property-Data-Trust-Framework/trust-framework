@@ -1,14 +1,18 @@
 {
   "@context": [
-    "https://www.w3.org/2018/credentials/v1"
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/vc/status-list/2021/v1",
+    "https://trust.propdata.org.uk/contexts/pdtf-v2.jsonld",
+    "https://trust.propdata.org.uk/contexts/trust-registry-v1.jsonld",
+    "https://w3id.org/security/suites/ed25519-2020/v1"
   ],
-  "id": "urn:pdtf:trust-registry:iac:e46c4b04-b2bf-496a-ac00-dfbf0dfb4c2b",
+  "id": "urn:pdtf:trust-registry:iac:1de2f641-56f2-4ee6-9b2b-18188816b17e",
   "type": [
     "VerifiableCredential",
     "PDTFIssuerAccreditationCredential"
   ],
   "issuer": "did:web:trust.propdata.org.uk",
-  "validFrom": "2025-12-12T16:25:20.455Z",
+  "issuanceDate": "2025-12-12T16:32:24.833Z",
   "credentialSubject": {
     "id": "did:web:landregistry.example",
     "legalName": "UK Land Registry Authority",
@@ -31,16 +35,16 @@
   },
   "credentialStatus": {
     "id": "https://trust.propdata.org.uk/status/ga-accreditation-revocation.json#12",
-    "type": "BitstringStatusListEntry",
+    "type": "StatusList2021Entry",
     "statusPurpose": "revocation",
     "statusListIndex": "12",
     "statusListCredential": "https://trust.propdata.org.uk/status/ga-accreditation-revocation.json"
   },
   "proof": {
-    "type": "JwsProof2025",
-    "created": "2025-12-12T16:25:20.455Z",
-    "proofPurpose": "assertionMethod",
+    "type": "Ed25519Signature2020",
+    "created": "2025-12-12T16:32:24Z",
     "verificationMethod": "did:web:trust.propdata.org.uk#key-1",
-    "jws": "eyJhbGciOiJFZERTQSIsImtpZCI6ImRpZDp3ZWI6dHJ1c3QucHJvcGRhdGEub3JnLnVrI2tleS0xIiwidHlwIjoiSldTIn0.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvMjAxOC9jcmVkZW50aWFscy92MSJdLCJjcmVkZW50aWFsU3RhdHVzIjp7ImlkIjoiaHR0cHM6Ly90cnVzdC5wcm9wZGF0YS5vcmcudWsvc3RhdHVzL2dhLWFjY3JlZGl0YXRpb24tcmV2b2NhdGlvbi5qc29uIzEyIiwic3RhdHVzTGlzdENyZWRlbnRpYWwiOiJodHRwczovL3RydXN0LnByb3BkYXRhLm9yZy51ay9zdGF0dXMvZ2EtYWNjcmVkaXRhdGlvbi1yZXZvY2F0aW9uLmpzb24iLCJzdGF0dXNMaXN0SW5kZXgiOiIxMiIsInN0YXR1c1B1cnBvc2UiOiJyZXZvY2F0aW9uIiwidHlwZSI6IkJpdHN0cmluZ1N0YXR1c0xpc3RFbnRyeSJ9LCJjcmVkZW50aWFsU3ViamVjdCI6eyJhc3N1cmFuY2VMZXZlbCI6IkFMMiIsImF1dGhvcml6YXRpb25zIjp7ImFsbG93ZWRTY2hlbWFzIjpbImh0dHBzOi8vdHJ1c3QucHJvcGRhdGEub3JnLnVrL3NjaGVtYXMvUERURi1WZXJpZmlhYmxlQ3JlZGVudGlhbCJdLCJjcmVkZW50aWFsVHlwZXMiOlsiUHJvcGVydHlPd25lcnNoaXBDZXJ0aWZpY2F0ZSIsIkxhbmRSZWdpc3RyeUV4dHJhY3QiXSwidmNGb3JtYXRzIjpbImpzb25sZC1kaSJdfSwiZGlzY292ZXJ5Ijp7fSwiZW52aXJvbm1lbnQiOiJ0ZXN0IiwiaWQiOiJkaWQ6d2ViOmxhbmRyZWdpc3RyeS5leGFtcGxlIiwibGVnYWxOYW1lIjoiVUsgTGFuZCBSZWdpc3RyeSBBdXRob3JpdHkiLCJzdGF0dXMiOiJhY3RpdmUifSwiaWQiOiJ1cm46cGR0Zjp0cnVzdC1yZWdpc3RyeTppYWM6ZTQ2YzRiMDQtYjJiZi00OTZhLWFjMDAtZGZiZjBkZmI0YzJiIiwiaXNzdWVyIjoiZGlkOndlYjp0cnVzdC5wcm9wZGF0YS5vcmcudWsiLCJ0eXBlIjpbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwiUERURklzc3VlckFjY3JlZGl0YXRpb25DcmVkZW50aWFsIl0sInZhbGlkRnJvbSI6IjIwMjUtMTItMTJUMTY6MjU6MjAuNDU1WiJ9.qzH3a8ckM88Pps70QXr6VHLKSFDFj1porrGCg8Nc19HKfF7qqgMfIjsR1W0oSgyACqRg-lFcsUh0nHgpffNCBg"
+    "proofPurpose": "assertionMethod",
+    "proofValue": "z4Gj9bMLmrTmYaiGggwunWf53nSDJeyKNkqfsTLtx3KDpr9NyFBKytcLnSNUG6ks7hj2dxEwwWM5dXghR5wfhC4Pk"
   }
 }

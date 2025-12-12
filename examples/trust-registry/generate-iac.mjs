@@ -1,17 +1,11 @@
 #!/usr/bin/env node
 /**
- * Generate a GA-signed Issuer Accreditation Credential (IAC) as a VC-shaped JSON object.
- *
- * Notes:
- * - This uses a compact JWS (EdDSA) embedded in `proof.jws`.
- * - It uses deterministic key-sorted JSON for signing (NOT JSON-LD canonicalization).
- *   For production, use a proper VC Data Integrity implementation and JSON-LD canonicalization.
+ * Generate a GA-signed Issuer Accreditation Credential (IAC) as a JSON-LD VC
+ * with a Linked Data Proof (Ed25519Signature2020).
  *
  * Usage:
  *   node examples/trust-registry/generate-iac.mjs \
- *     --ga-did did:web:trust.propdata.org.uk \
- *     --ga-vm did:web:trust.propdata.org.uk#key-1 \
- *     --ga-private ./ga-private.pem \
+ *     --ga-keypair ./ga-keypair.json \
  *     --issuer-did did:web:landregistry.example \
  *     --legal-name "UK Land Registry Authority" \
  *     --status-list-credential https://trust.propdata.org.uk/status/ga-accreditation-revocation.json \
@@ -20,7 +14,7 @@
  */
 import fs from 'node:fs';
 import crypto from 'node:crypto';
-import { signJwsEdDsa, stableJsonStringify } from './_jws.mjs';
+import {buildDocumentLoader, issueEd25519Signature2020, loadEd25519KeyPair2020FromFile} from './_ldp.mjs';
 
 function getArg(name, { required = false, defaultValue } = {}) {
   const idx = process.argv.indexOf(name);
@@ -33,9 +27,7 @@ function getArg(name, { required = false, defaultValue } = {}) {
   return val ?? defaultValue;
 }
 
-const gaDid = getArg('--ga-did', { required: true });
-const gaVm = getArg('--ga-vm', { required: true });
-const gaPrivatePath = getArg('--ga-private', { required: true });
+const gaKeypairPath = getArg('--ga-keypair', { required: true });
 
 const issuerDid = getArg('--issuer-did', { required: true });
 const legalName = getArg('--legal-name', { required: true });
@@ -67,20 +59,27 @@ const issuerStatusList = getArg('--issuer-status-list', { defaultValue: undefine
 const environment = getArg('--environment', { defaultValue: 'test' }); // test|live
 
 const now = new Date();
-const validFrom = getArg('--valid-from', { defaultValue: now.toISOString() });
-const validUntil = getArg('--valid-until', { defaultValue: undefined });
+const issuanceDate = getArg('--issuance-date', { defaultValue: now.toISOString() });
+const expirationDate = getArg('--expiration-date', { defaultValue: undefined });
 
 const id = getArg('--id', {
   defaultValue: `urn:pdtf:trust-registry:iac:${crypto.randomUUID()}`
 });
 
-const vc = {
-  '@context': ['https://www.w3.org/2018/credentials/v1'],
+const credential = {
+  '@context': [
+    'https://www.w3.org/2018/credentials/v1',
+    'https://w3id.org/vc/status-list/2021/v1',
+    // PDTF context (optional but useful for shared terms)
+    'https://trust.propdata.org.uk/contexts/pdtf-v2.jsonld',
+    // Trust registry terms used below
+    'https://trust.propdata.org.uk/contexts/trust-registry-v1.jsonld'
+  ],
   id,
   type: ['VerifiableCredential', 'PDTFIssuerAccreditationCredential'],
-  issuer: gaDid,
-  validFrom,
-  ...(validUntil ? { validUntil } : {}),
+  issuer: getArg('--ga-did', { defaultValue: undefined }) ?? undefined,
+  issuanceDate,
+  ...(expirationDate ? { expirationDate } : {}),
   credentialSubject: {
     id: issuerDid,
     legalName,
@@ -99,32 +98,19 @@ const vc = {
   },
   credentialStatus: {
     id: `${statusListCredential}#${statusListIndex}`,
-    type: 'BitstringStatusListEntry',
+    type: 'StatusList2021Entry',
     statusPurpose: 'revocation',
     statusListIndex: String(statusListIndex),
     statusListCredential
   }
 };
 
-const gaPrivatePem = fs.readFileSync(gaPrivatePath, 'utf8');
-const gaPrivateKey = crypto.createPrivateKey(gaPrivatePem);
+const keyPair = await loadEd25519KeyPair2020FromFile(gaKeypairPath);
+// If `--ga-did` wasn't explicitly provided, default the VC issuer to the key controller.
+if (!credential.issuer) credential.issuer = keyPair.controller;
 
-const jws = signJwsEdDsa({
-  header: { alg: 'EdDSA', typ: 'JWS', kid: gaVm },
-  payload: vc,
-  privateKey: gaPrivateKey
-});
-
-const signedVc = {
-  ...vc,
-  proof: {
-    type: 'JwsProof2025',
-    created: now.toISOString(),
-    proofPurpose: 'assertionMethod',
-    verificationMethod: gaVm,
-    jws
-  }
-};
+const documentLoader = buildDocumentLoader();
+const signedVc = await issueEd25519Signature2020({credential, keyPair, documentLoader});
 
 const output = `${JSON.stringify(signedVc, null, 2)}\n`;
 
@@ -134,6 +120,5 @@ if (outPath === '-' || outPath === '/dev/stdout') {
   fs.writeFileSync(outPath, output, 'utf8');
 }
 
-// Also print a deterministic hash line to stderr for easy indexing.
-process.stderr.write(`IAC_SHA256=${crypto.createHash('sha256').update(stableJsonStringify(signedVc)).digest('hex')}\n`);
+process.stderr.write(`IAC_ID=${signedVc.id}\n`);
 

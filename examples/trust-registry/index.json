@@ -1,24 +1,35 @@
 {
   "@context": [
-    "https://www.w3.org/2018/credentials/v1"
+    "https://www.w3.org/2018/credentials/v1",
+    "https://trust.propdata.org.uk/contexts/pdtf-v2.jsonld",
+    "https://trust.propdata.org.uk/contexts/trust-registry-v1.jsonld",
+    "https://w3id.org/security/suites/ed25519-2020/v1"
   ],
   "id": "https://trust.propdata.org.uk/trust-registry/v2/index.json",
-  "type": "PDTFTrustedIssuerRegistryIndex",
-  "issuer": "did:web:trust.propdata.org.uk",
-  "publishedDate": "2025-12-12T16:25:20.482Z",
-  "issuers": [
-    {
-      "issuerDid": "did:web:landregistry.example",
-      "iacId": "urn:pdtf:trust-registry:iac:e46c4b04-b2bf-496a-ac00-dfbf0dfb4c2b",
-      "iacSha256": "eb6478d7aa55bdf8620c498dd99e28104a2d052c812d7b183f194da9963829dd",
-      "sourcePath": "/workspace/examples/trust-registry/iac-landregistry.json"
-    }
+  "type": [
+    "VerifiableCredential",
+    "PDTFTrustRegistryIndexCredential"
   ],
+  "issuer": "did:web:trust.propdata.org.uk",
+  "issuanceDate": "2025-12-12T16:32:25.187Z",
+  "credentialSubject": {
+    "id": "https://trust.propdata.org.uk/trust-registry/v2/index.json#subject",
+    "type": "PDTFTrustRegistryIndex",
+    "publishedDate": "2025-12-12T16:32:25.187Z",
+    "issuers": [
+      {
+        "issuerDid": "did:web:landregistry.example",
+        "iacId": "urn:pdtf:trust-registry:iac:1de2f641-56f2-4ee6-9b2b-18188816b17e",
+        "iacSha256": "8a08b51164f66aec3f50c04be2d8f987052e9db51b6c430a5a25171c406bbe23",
+        "sourcePath": "/workspace/examples/trust-registry/iac-landregistry.json"
+      }
+    ]
+  },
   "proof": {
-    "type": "JwsProof2025",
-    "created": "2025-12-12T16:25:20.482Z",
-    "proofPurpose": "assertionMethod",
+    "type": "Ed25519Signature2020",
+    "created": "2025-12-12T16:32:25Z",
     "verificationMethod": "did:web:trust.propdata.org.uk#key-1",
-    "jws": "eyJhbGciOiJFZERTQSIsImtpZCI6ImRpZDp3ZWI6dHJ1c3QucHJvcGRhdGEub3JnLnVrI2tleS0xIiwidHlwIjoiSldTIn0.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvMjAxOC9jcmVkZW50aWFscy92MSJdLCJpZCI6Imh0dHBzOi8vdHJ1c3QucHJvcGRhdGEub3JnLnVrL3RydXN0LXJlZ2lzdHJ5L3YyL2luZGV4Lmpzb24iLCJpc3N1ZXIiOiJkaWQ6d2ViOnRydXN0LnByb3BkYXRhLm9yZy51ayIsImlzc3VlcnMiOlt7ImlhY0lkIjoidXJuOnBkdGY6dHJ1c3QtcmVnaXN0cnk6aWFjOmU0NmM0YjA0LWIyYmYtNDk2YS1hYzAwLWRmYmYwZGZiNGMyYiIsImlhY1NoYTI1NiI6ImViNjQ3OGQ3YWE1NWJkZjg2MjBjNDk4ZGQ5OWUyODEwNGEyZDA1MmM4MTJkN2IxODNmMTk0ZGE5OTYzODI5ZGQiLCJpc3N1ZXJEaWQiOiJkaWQ6d2ViOmxhbmRyZWdpc3RyeS5leGFtcGxlIiwic291cmNlUGF0aCI6Ii93b3Jrc3BhY2UvZXhhbXBsZXMvdHJ1c3QtcmVnaXN0cnkvaWFjLWxhbmRyZWdpc3RyeS5qc29uIn1dLCJwdWJsaXNoZWREYXRlIjoiMjAyNS0xMi0xMlQxNjoyNToyMC40ODJaIiwidHlwZSI6IlBEVEZUcnVzdGVkSXNzdWVyUmVnaXN0cnlJbmRleCJ9.4Uy-utJHQ07KxZvgEyEMi6bCGeyPT-YK4ZjkPK1-sKE3dIg3v-7eO1Sec7SMeQq5JEHVWgaaL990TnBoRf1IBw"
+    "proofPurpose": "assertionMethod",
+    "proofValue": "z6617rz6rXEy7Mg4RCsi3a8aP7MAyoLxxPigqjg5aRRwv8PFhnrgCsRZh6xeBkmfJwwFtjwYZ9AoBTDmZ73h6NjTZ"
   }
 }
