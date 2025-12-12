@@ -1,0 +1,25 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1"
+  ],
+  "id": "https://trust.propdata.org.uk/status/ga-accreditation-revocation.json",
+  "type": [
+    "VerifiableCredential",
+    "BitstringStatusListCredential"
+  ],
+  "issuer": "did:web:trust.propdata.org.uk",
+  "validFrom": "2025-12-12T16:25:20.429Z",
+  "credentialSubject": {
+    "id": "https://trust.propdata.org.uk/status/ga-accreditation-revocation.json#list",
+    "type": "BitstringStatusList",
+    "statusPurpose": "revocation",
+    "encodedList": "H4sIAAAAAAAAA2MQYIADFgZMAADkM5m5IAAAAA"
+  },
+  "proof": {
+    "type": "JwsProof2025",
+    "created": "2025-12-12T16:25:20.429Z",
+    "proofPurpose": "assertionMethod",
+    "verificationMethod": "did:web:trust.propdata.org.uk#key-1",
+    "jws": "eyJhbGciOiJFZERTQSIsImtpZCI6ImRpZDp3ZWI6dHJ1c3QucHJvcGRhdGEub3JnLnVrI2tleS0xIiwidHlwIjoiSldTIn0.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvMjAxOC9jcmVkZW50aWFscy92MSJdLCJjcmVkZW50aWFsU3ViamVjdCI6eyJlbmNvZGVkTGlzdCI6Ikg0c0lBQUFBQUFBQUEyTVFZSUFERmdaTUFBRGtNNW01SUFBQUFBIiwiaWQiOiJodHRwczovL3RydXN0LnByb3BkYXRhLm9yZy51ay9zdGF0dXMvZ2EtYWNjcmVkaXRhdGlvbi1yZXZvY2F0aW9uLmpzb24jbGlzdCIsInN0YXR1c1B1cnBvc2UiOiJyZXZvY2F0aW9uIiwidHlwZSI6IkJpdHN0cmluZ1N0YXR1c0xpc3QifSwiaWQiOiJodHRwczovL3RydXN0LnByb3BkYXRhLm9yZy51ay9zdGF0dXMvZ2EtYWNjcmVkaXRhdGlvbi1yZXZvY2F0aW9uLmpzb24iLCJpc3N1ZXIiOiJkaWQ6d2ViOnRydXN0LnByb3BkYXRhLm9yZy51ayIsInR5cGUiOlsiVmVyaWZpYWJsZUNyZWRlbnRpYWwiLCJCaXRzdHJpbmdTdGF0dXNMaXN0Q3JlZGVudGlhbCJdLCJ2YWxpZEZyb20iOiIyMDI1LTEyLTEyVDE2OjI1OjIwLjQyOVoifQ.zd0HFIgzwjO1FuuuYNK6iS_sPvpstbxaVCDGdSBr7NGwNlsbuk_iXzo1Gzd6TtyFym36OPm7QKGFKJfDK7W7BQ"
+  }
+}
