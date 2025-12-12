@@ -5,7 +5,7 @@
  * Usage:
  *   node examples/trust-registry/generate-ga-keypair.mjs \
  *     --controller did:web:trust.propdata.org.uk \
- *     --id did:web:trust.propdata.org.uk#key-1 \
+ *     --environment live|test \
  *     --out ./ga-keypair.json \
  *     --out-public ./ga-public.json
  *
@@ -20,7 +20,13 @@ function getArg(name) {
 }
 
 const controller = getArg('--controller') ?? 'did:web:trust.propdata.org.uk';
-const id = getArg('--id') ?? `${controller}#key-1`;
+const environment = getArg('--environment') ?? 'test'; // test|live
+if (!['test', 'live'].includes(environment)) {
+  throw new Error('--environment must be "test" or "live"');
+}
+
+const defaultFragment = environment === 'live' ? 'key-1' : 'test-key-1';
+const id = getArg('--id') ?? `${controller}#${defaultFragment}`;
 
 const out = getArg('--out');
 const outPublic = getArg('--out-public');

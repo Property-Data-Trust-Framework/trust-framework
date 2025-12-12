@@ -5,6 +5,7 @@
  * Usage:
  *   node examples/trust-registry/generate-registry-index.mjs \
  *     --ga-keypair ./ga-keypair.json \
+ *     --environment live|test \
  *     --id https://trust.propdata.org.uk/trust-registry/v2/index.json \
  *     --iac ./iac-landregistry.json \
  *     --iac ./iac-epc.json \
@@ -36,7 +37,15 @@ function getMultiArg(name) {
 
 const gaKeypairPath = getArg('--ga-keypair', { required: true });
 
-const id = getArg('--id', { required: true });
+const environment = getArg('--environment', { defaultValue: 'test' }); // test|live
+if (!['test', 'live'].includes(environment)) {
+  throw new Error('--environment must be "test" or "live"');
+}
+
+const id =
+  getArg('--id', { defaultValue: undefined }) ??
+  `https://trust.propdata.org.uk/trust-registry/${environment}/index.json`;
+
 const outPath = getArg('--out', { defaultValue: '-' });
 
 const iacPaths = getMultiArg('--iac');
@@ -49,6 +58,13 @@ const issuers = iacPaths.map((p) => {
   const iac = JSON.parse(raw);
   const issuerDid = iac?.credentialSubject?.id;
   if (!issuerDid) throw new Error(`IAC missing credentialSubject.id: ${p}`);
+
+  const iacEnv = iac?.credentialSubject?.environment;
+  if (iacEnv && iacEnv !== environment) {
+    throw new Error(
+      `IAC environment mismatch (index=${environment}, iac=${iacEnv}): ${p}`
+    );
+  }
 
   return {
     issuerDid,
@@ -74,6 +90,7 @@ const credential = {
     id: `${id}#subject`,
     type: 'PDTFTrustRegistryIndex',
     publishedDate: now.toISOString(),
+    environment,
     issuers
   }
 };

@@ -25,6 +25,7 @@
     "issuerStatusList": { "@id": "tr:issuerStatusList", "@type": "@id" },
 
     "publishedDate": { "@id": "tr:publishedDate", "@type": "xsd:dateTime" },
+    "environment": { "@id": "tr:environment", "@type": "xsd:string" },
     "issuers": { "@id": "tr:issuers", "@container": "@list" },
     "issuerDid": { "@id": "tr:issuerDid", "@type": "@id" },
     "iacId": { "@id": "tr:iacId", "@type": "@id" },

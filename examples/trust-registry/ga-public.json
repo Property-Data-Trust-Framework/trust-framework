@@ -1,6 +1,0 @@
-{
-  "id": "did:web:trust.propdata.org.uk#key-1",
-  "type": "Ed25519VerificationKey2020",
-  "controller": "did:web:trust.propdata.org.uk",
-  "publicKeyMultibase": "z6MkpJ49fVYXEpkrBAH6wt27p2H2pMfLw2vehQx5Rek64VhW"
-}

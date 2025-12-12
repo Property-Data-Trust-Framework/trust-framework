@@ -10,7 +10,8 @@
  * Usage:
  *   node examples/trust-registry/generate-ga-accreditation-status-list.mjs \
  *     --ga-keypair ./ga-keypair.json \
- *     --id https://trust.propdata.org.uk/status/ga-accreditation-revocation.json \
+ *     --environment live|test \
+ *     --id https://trust.propdata.org.uk/status/live/ga-accreditation-revocation.json \
  *     --length 2048 \
  *     --revoked 12,98,123 \
  *     --out ./ga-accreditation-revocation.json
@@ -33,7 +34,15 @@ function getArg(name, { required = false, defaultValue } = {}) {
 
 const gaKeypairPath = getArg('--ga-keypair', { required: true });
 
-const id = getArg('--id', { required: true });
+const environment = getArg('--environment', { defaultValue: 'test' }); // test|live
+if (!['test', 'live'].includes(environment)) {
+  throw new Error('--environment must be "test" or "live"');
+}
+
+const id =
+  getArg('--id', { defaultValue: undefined }) ??
+  `https://trust.propdata.org.uk/status/${environment}/ga-accreditation-revocation.json`;
+
 const outPath = getArg('--out', { defaultValue: '-' });
 const statusPurpose = getArg('--status-purpose', { defaultValue: 'revocation' }); // revocation|suspension
 const length = Number(getArg('--length', { defaultValue: '16384' }));
