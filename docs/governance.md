@@ -81,14 +81,14 @@ Defines enforceable agreements and liability.
 - Maintain the overall vision and roadmap for the PDTF.
 - Ensure alignment with the framework's principles (standardisation, interoperability, and transparency).
 - Facilitate discussions, set agendas, and manage timelines for decisions.
-- Escalate disputes to an ODPA, if consensus cannot be reached.
+- Escalate disputes to an OPDA director, if consensus cannot be reached.
 
 #### Composition
 - TBA
 
 #### Processes
 - Decisions are made by majority agreement.
-- Raising disputes to ODPA when wider governance is required.
+- Raising disputes to OPDA when wider governance is required.
 
 ### B. Technical Review
 
@@ -119,7 +119,7 @@ Defines enforceable agreements and liability.
 - Develop and enforce guidelines on the use of PII within the framework.
 
 #### Composition
-- By nomination of any ODPA member organisation.
+- By nomination of any OPDA member organisation.
 
 #### Processes
 - Compliance check of proposed major schema releases before release.
