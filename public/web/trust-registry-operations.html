@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trust-registry-operations - Property Data Trust Framework</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            color: #24292e;
+        }
+        h1, h2, h3 { color: #0366d6; }
+        code { 
+            background: #f6f8fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-size: 85%;
+        }
+        pre {
+            background: #f6f8fa;
+            padding: 16px;
+            overflow: auto;
+            border-radius: 6px;
+        }
+        a { color: #0366d6; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .nav {
+            background: #f6f8fa;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 6px;
+        }
+        .nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav li {
+            display: inline-block;
+            margin-right: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="governance.html">Governance</a></li>
+            <li><a href="plan.html">Development Plan</a></li>
+            <li><a href="Draft_%20Property%20Data%20Trust%20Framework%202%20Specification.html">Framework Spec</a></li>
+            <li><a href="Draft_%20PDTF%20Participant%20DID%20Auth%20OAuth%202%20Specification.html">OAuth Spec</a></li>
+            <li><a href="access-specification.html">Access Spec</a></li>
+            <li><a href="../">Registry</a></li>
+        </ul>
+    </nav>
+    <main>
+<h1>Trusted Issuer Registry (Option B) — Usage &amp; Operations Guide</h1>
+<p>This guide describes how to operate the PDTF Trust Registry using <strong>Option B</strong>: <strong>GA-issued accreditation credentials</strong> (Verifiable Credentials) for trusted issuers and proxies.</p>
+<p>It is written for three audiences:</p>
+<ul>
+<li><strong>Registry Operator / Governance Authority (GA)</strong>: how to publish and maintain the trust registry.</li>
+<li><strong>Trusted Issuers / Trusted Proxies</strong>: how to onboard, issue credentials, and manage lifecycle.</li>
+<li><strong>Verifiers / Hubs (AS/RS)</strong>: how to consume the registry and enforce trust decisions.</li>
+</ul>
+<blockquote>
+<p>Note</p>
+<ul>
+<li>The legacy <code>public/trusted-issuers-registry.json</code> was not intended to be a valid, normative registry model.</li>
+<li>The normative model described here is based on <strong>JSON-LD VCs + Linked Data Proofs</strong> and <strong>Status List 2021</strong>.</li>
+</ul>
+</blockquote>
+<hr>
+<h2>1. Concepts and artifacts</h2>
+<h3>1.1 Roles</h3>
+<ul>
+<li><strong>Governance Authority (GA)</strong>: Trust anchor. Owns the GA DID and signing keys and issues accreditation credentials.</li>
+<li><strong>Trust Registry Operator (TRO)</strong>: Publishes and maintains registry artifacts. MAY be the same org as GA.</li>
+<li><strong>Trusted Issuer</strong>: An entity accredited to issue specific PDTF credential types/schemas.</li>
+<li><strong>Trusted Proxy</strong>: An entity accredited to issue credentials <em>on behalf of</em> a primary source (policy-governed).</li>
+<li><strong>Verifier / Hub</strong>: A relying party (or PDTF hub AS/RS) that verifies credentials and enforces trust policy.</li>
+</ul>
+<h3>1.2 Registry artifacts (per environment)</h3>
+<p>All artifacts exist in <strong>two separate environments</strong>:</p>
+<ul>
+<li><strong><code>test</code></strong>: sandbox/pilot use only.</li>
+<li><strong><code>live</code></strong>: production.</li>
+</ul>
+<h4>A) GA Accreditation Status List VC (Status List 2021)</h4>
+<p>Purpose: allow the GA to revoke/suspend accreditation credentials (IACs) without rewriting history.</p>
+<ul>
+<li><strong>Type</strong>: <code>StatusList2021Credential</code></li>
+<li><strong>Context</strong>: <code>https://w3id.org/vc/status-list/2021/v1</code></li>
+<li><strong>Issuer</strong>: GA DID</li>
+<li><strong>URL pattern (recommended)</strong>:<ul>
+<li><code>https://trust.propdata.org.uk/status/test/ga-accreditation-revocation.json</code></li>
+<li><code>https://trust.propdata.org.uk/status/live/ga-accreditation-revocation.json</code></li>
+</ul>
+</li>
+</ul>
+<h4>B) Issuer Accreditation Credential (IAC)</h4>
+<p>Purpose: a GA-signed VC asserting that a particular issuer DID is accredited for certain issuance scopes.</p>
+<ul>
+<li><strong>Type</strong>: <code>PDTFIssuerAccreditationCredential</code></li>
+<li><strong>Issuer</strong>: GA DID</li>
+<li><strong>Subject</strong>: issuer DID (in <code>credentialSubject.id</code>)</li>
+<li>Includes:<ul>
+<li><strong>environment</strong> (<code>test</code> or <code>live</code>)</li>
+<li><strong>status</strong> (<code>active</code> / operational lifecycle)</li>
+<li><strong>assuranceLevel</strong> (e.g., AL2 / AL4 per governance)</li>
+<li><strong>authorizations</strong> (allowed schemas/types/formats)</li>
+<li><strong>discovery</strong> (OID4VCI URL, issuer status list URL, etc.)</li>
+<li><strong>credentialStatus</strong> entry pointing to the GA accreditation Status List VC</li>
+</ul>
+</li>
+</ul>
+<h4>C) Trust Registry Index Credential</h4>
+<p>Purpose: a GA-signed VC that lists the <strong>current</strong> IACs for an environment.</p>
+<ul>
+<li><strong>Type</strong>: <code>PDTFTrustRegistryIndexCredential</code></li>
+<li><strong>Issuer</strong>: GA DID</li>
+<li><strong>Subject</strong>: a <code>PDTFTrustRegistryIndex</code> object containing:<ul>
+<li><code>environment</code></li>
+<li><code>publishedDate</code></li>
+<li><code>issuers[]</code> entries referencing IAC IDs (and optional integrity hashes)</li>
+</ul>
+</li>
+</ul>
+<p><strong>URL pattern (recommended)</strong>:</p>
+<ul>
+<li><code>https://trust.propdata.org.uk/trust-registry/test/index.json</code></li>
+<li><code>https://trust.propdata.org.uk/trust-registry/live/index.json</code></li>
+</ul>
+<hr>
+<h2>2. Publication layout (recommended)</h2>
+<p>This repository is already deployed as a static site (GitHub Pages). A pragmatic static layout is:</p>
+<pre><code>public/
+  contexts/
+    trust-registry-v1.jsonld
+  status/
+    test/
+      ga-accreditation-revocation.json
+    live/
+      ga-accreditation-revocation.json
+  trust-registry/
+    test/
+      index.json
+      iac/
+        &lt;issuer-identifier&gt;.json
+    live/
+      index.json
+      iac/
+        &lt;issuer-identifier&gt;.json
+</code></pre>
+<p>Where <code>&lt;issuer-identifier&gt;</code> is an implementation choice (URL-safe slug). The authoritative identifier remains <code>iac.id</code>.</p>
+<hr>
+<h2>3. Cryptographic and DID requirements</h2>
+<h3>3.1 GA DID and keys</h3>
+<ul>
+<li>GA <strong>MUST</strong> control a DID suitable for verification by relying parties (typically <code>did:web</code> on the registry domain).</li>
+<li>GA <strong>MUST</strong> maintain two separate signing keys:<ul>
+<li><strong>live key</strong>: e.g., <code>did:web:trust.propdata.org.uk#key-1</code></li>
+<li><strong>test key</strong>: e.g., <code>did:web:trust.propdata.org.uk#test-key-1</code></li>
+</ul>
+</li>
+<li>Verifiers <strong>MUST</strong> pin the appropriate GA verification method for the environment they operate in.</li>
+</ul>
+<h3>3.2 Issuer DIDs and keys</h3>
+<ul>
+<li>Issuers <strong>MUST</strong> control the DID that appears as the <code>issuer</code> of business credentials.</li>
+<li>Issuers <strong>SHOULD</strong> publish DID documents and rotate keys according to their security policy.</li>
+</ul>
+<hr>
+<h2>4. Operator/GA: Day-0 setup</h2>
+<h3>4.1 Add trust registry context</h3>
+<p>This repo includes a trust registry context:</p>
+<ul>
+<li><code>public/contexts/trust-registry-v1.jsonld</code></li>
+</ul>
+<p>If you add new fields used in IACs or index credentials, you <strong>MUST</strong> update this context (or define a new versioned context).</p>
+<h3>4.2 Generate GA keys (test and live)</h3>
+<p>Example (writes JSON key material; keep private keys out of Git):</p>
+<pre><code class="language-bash">node examples/trust-registry/generate-ga-keypair.mjs \
+  --environment test \
+  --out ./ga-test-keypair.json \
+  --out-public ./ga-test-public.json
+
+node examples/trust-registry/generate-ga-keypair.mjs \
+  --environment live \
+  --out ./ga-live-keypair.json \
+  --out-public ./ga-live-public.json
+</code></pre>
+<p>Operational requirements:</p>
+<ul>
+<li>GA <strong>MUST</strong> store private keys in a secure KMS/HSM (or equivalent) in production.</li>
+<li>GA <strong>MUST NOT</strong> commit private keys to this repository.</li>
+<li>GA <strong>SHOULD</strong> publish the GA public key material via the GA DID document.</li>
+</ul>
+<hr>
+<h2>5. Operator/GA: Issuer onboarding and accreditation issuance</h2>
+<h3>5.1 Onboarding inputs (minimum)</h3>
+<p>Issuer provides:</p>
+<ul>
+<li><strong>Issuer DID</strong> to be accredited</li>
+<li><strong>Legal name</strong> (and other KYB/KYC evidence as required by governance)</li>
+<li>Requested <strong>authorization scope</strong>:<ul>
+<li><code>credentialTypes</code> and/or <code>allowedSchemas</code></li>
+<li>supported VC formats</li>
+<li>assurance level requested (GA decides)</li>
+</ul>
+</li>
+<li>Discovery metadata:<ul>
+<li>OID4VCI credential issuer URL (if relevant)</li>
+<li>issuer status list URL(s) for credentials it issues</li>
+</ul>
+</li>
+<li>Environment: <code>test</code> or <code>live</code></li>
+</ul>
+<h3>5.2 DID control verification (required)</h3>
+<p>GA/TRO <strong>MUST</strong> verify the applicant controls the issuer DID (e.g., DID-Auth challenge signed by a DID verification method).</p>
+<h3>5.3 Create / update GA accreditation status list VC</h3>
+<p>Create per environment:</p>
+<pre><code class="language-bash">node examples/trust-registry/generate-ga-accreditation-status-list.mjs \
+  --ga-keypair ./ga-test-keypair.json \
+  --environment test \
+  --length 16384 \
+  --revoked &quot;&quot; \
+  --out ./ga-accreditation-revocation-test.json
+
+node examples/trust-registry/generate-ga-accreditation-status-list.mjs \
+  --ga-keypair ./ga-live-keypair.json \
+  --environment live \
+  --length 16384 \
+  --revoked &quot;&quot; \
+  --out ./ga-accreditation-revocation-live.json
+</code></pre>
+<p>Publishing notes:</p>
+<ul>
+<li>This VC is updated as revocations occur. Verifiers cache with short TTL/ETag.</li>
+</ul>
+<h3>5.4 Issue an IAC (Issuer Accreditation Credential)</h3>
+<pre><code class="language-bash">node examples/trust-registry/generate-iac.mjs \
+  --ga-keypair ./ga-live-keypair.json \
+  --environment live \
+  --issuer-did did:web:issuer.example \
+  --legal-name &quot;Issuer Example Ltd&quot; \
+  --status-list-credential https://trust.propdata.org.uk/status/live/ga-accreditation-revocation.json \
+  --status-list-index 123 \
+  --credential-types PropertyOwnershipCertificate,LandRegistryExtract \
+  --allowed-schemas https://trust.propdata.org.uk/schemas/PDTF-VerifiableCredential \
+  --vc-formats jsonld-di \
+  --oid4vci-issuer https://issuer.example/oid4vci \
+  --issuer-status-list https://issuer.example/status/list-2021.json \
+  --out ./iac-issuer-example.json
+</code></pre>
+<p>Operational rules:</p>
+<ul>
+<li>GA <strong>MUST</strong> allocate a unique <code>statusListIndex</code> for each IAC and track it.</li>
+<li>GA <strong>MUST</strong> publish the IAC at an immutable URL (do not overwrite; supersede via index updates).</li>
+<li>GA <strong>MUST</strong> issue a <strong>new</strong> IAC for any scope change (schemas/types/formats/endpoints).</li>
+</ul>
+<h3>5.5 Publish/update the registry index VC</h3>
+<pre><code class="language-bash">node examples/trust-registry/generate-registry-index.mjs \
+  --ga-keypair ./ga-live-keypair.json \
+  --environment live \
+  --iac ./iac-issuer-example.json \
+  --out ./index-live.json
+</code></pre>
+<p>The index generator <strong>refuses</strong> to include IACs from the wrong environment.</p>
+<hr>
+<h2>6. Operator/GA: Suspension, revocation, and incident response</h2>
+<h3>6.1 Suspension/revocation of an IAC</h3>
+<p>GA revokes an IAC by setting the corresponding bit/index in the GA accreditation status list VC.</p>
+<p>Requirements:</p>
+<ul>
+<li>Verifiers <strong>MUST</strong> treat revoked accreditation as “issuer not trusted” for protected operations.</li>
+<li>GA <strong>SHOULD</strong> publish a change notice and keep an audit trail (issue/PR record).</li>
+</ul>
+<h3>6.2 GA key rotation</h3>
+<ul>
+<li>GA <strong>MUST</strong> rotate keys by updating the GA DID document.</li>
+<li>GA <strong>SHOULD</strong> keep previous verification methods available long enough for old proofs to be verifiable (policy-defined).</li>
+<li>GA <strong>MUST</strong> ensure test and live rotations are independent (avoid cross-environment reuse).</li>
+</ul>
+<hr>
+<h2>7. Trusted Issuers / Trusted Proxies: How to operate</h2>
+<h3>7.1 Preconditions</h3>
+<ul>
+<li>You have an issuer DID and control the signing keys referenced in its DID document.</li>
+<li>You have completed GA onboarding and have a published, valid IAC for the right environment.</li>
+</ul>
+<h3>7.2 Issuing business credentials</h3>
+<p>When issuing any PDTF credential:</p>
+<ul>
+<li><strong>issuer MUST be your DID</strong> (the one accredited in your IAC).</li>
+<li>You <strong>MUST</strong> use a proof format that is authorized in your IAC (e.g., JSON-LD Data Integrity / Ed25519Signature2020).</li>
+<li>You <strong>MUST</strong> publish and maintain your own <strong>credential status list</strong> for credentials you issue (per the access spec).</li>
+</ul>
+<h3>7.3 Issuer key rotation</h3>
+<ul>
+<li>Rotate by updating your DID document.</li>
+<li>Notify the GA if your endpoints or supported formats change (GA will issue a new IAC).</li>
+</ul>
+<h3>7.4 Change requests</h3>
+<p>If you need to change:</p>
+<ul>
+<li>authorized schemas/types,</li>
+<li>issuance formats,</li>
+<li>OID4VCI metadata,</li>
+<li>issuer status list endpoints,</li>
+</ul>
+<p>you <strong>MUST</strong> request a new IAC issuance from the GA/TRO.</p>
+<hr>
+<h2>8. Verifiers / Hubs: How to consume the registry</h2>
+<h3>8.1 Environment selection (MUST)</h3>
+<p>Verifiers <strong>MUST</strong> decide which environment they operate in:</p>
+<ul>
+<li><strong>live verifiers</strong> MUST only trust:<ul>
+<li>the <strong>live</strong> registry index URL and</li>
+<li>the <strong>live</strong> GA verification method(s)</li>
+</ul>
+</li>
+<li><strong>test verifiers</strong> MUST only trust:<ul>
+<li>the <strong>test</strong> registry index URL and</li>
+<li>the <strong>test</strong> GA verification method(s)</li>
+</ul>
+</li>
+</ul>
+<h3>8.2 Verification algorithm (recommended baseline)</h3>
+<p>Given a business credential <code>C</code>:</p>
+<ol>
+<li><strong>Fetch the registry index VC</strong> for your environment.</li>
+<li><strong>Verify the index proof</strong> against the GA DID and pinned GA key for that environment.</li>
+<li>Find the issuer entry where <code>issuerDid == C.issuer</code>.</li>
+<li><strong>Fetch the referenced IAC VC</strong>.</li>
+<li><strong>Verify the IAC proof</strong> against the GA DID and pinned GA key for that environment.</li>
+<li><strong>Check GA accreditation status</strong>:<ul>
+<li>Resolve <code>IAC.credentialStatus.statusListCredential</code></li>
+<li>Verify that status list VC proof (GA-signed)</li>
+<li>Evaluate <code>statusListIndex</code> for revocation (revoked =&gt; reject)</li>
+</ul>
+</li>
+<li><strong>Enforce policy</strong>:<ul>
+<li>Ensure <code>IAC.credentialSubject.environment</code> matches your environment</li>
+<li>Ensure the credential type/schema/format is authorized by the IAC</li>
+<li>Ensure assurance level meets your relying policy</li>
+</ul>
+</li>
+<li><strong>Verify the business credential</strong>:<ul>
+<li>Verify its signature/proof against <code>C.issuer</code> DID document</li>
+<li>Check its <code>credentialStatus</code> using the issuer’s status list (or its configured mechanism)</li>
+<li>Validate schema/profile rules as required (PDTF schema + termsOfUse enforcement)</li>
+</ul>
+</li>
+</ol>
+<h3>8.3 Caching rules</h3>
+<p>Suggested (aligning to the access spec’s “short cache” intent):</p>
+<ul>
+<li>Cache registry index VC: <strong>ETag + TTL ≤ 5 minutes</strong></li>
+<li>Cache GA accreditation status list VC: <strong>ETag + TTL ≤ 5 minutes</strong></li>
+<li>Cache IAC VCs: longer TTL is acceptable, but <strong>MUST</strong> re-check GA status list within policy TTL.</li>
+</ul>
+<h3>8.4 Failure handling (MUST)</h3>
+<p>If any of the following fail, verifiers <strong>MUST</strong> reject the credential for protected decisions:</p>
+<ul>
+<li>index proof invalid or cannot be fetched (within policy)</li>
+<li>IAC proof invalid or cannot be fetched</li>
+<li>IAC revoked in GA status list</li>
+<li>issuer not present in index for environment</li>
+<li>credential not authorized by IAC</li>
+</ul>
+<hr>
+<h2>9. Operational guardrails (strongly recommended)</h2>
+<ul>
+<li><strong>Never mix environments</strong>:<ul>
+<li>separate URLs</li>
+<li>separate GA keys</li>
+<li>separate registry indices</li>
+</ul>
+</li>
+<li><strong>Pin GA verification methods</strong> (do not “trust any key in did:web” without policy).</li>
+<li><strong>Avoid arbitrary remote context fetching</strong> in production verifiers:<ul>
+<li>pre-load contexts used by PDTF and this trust registry profile</li>
+<li>treat unknown contexts as policy failures</li>
+</ul>
+</li>
+<li><strong>Keep all private keys out of Git</strong> (including examples).</li>
+</ul>
+    </main>
+</body>
+</html>
